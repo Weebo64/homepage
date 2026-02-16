@@ -885,4 +885,11 @@ reportForm.addEventListener('submit', async (e) => {
     }
 });
 
-
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('mii-image')) {
+        const fc = e.target.dataset.playerFc;
+        if (fc && fc !== 'N/A') {
+        window.open(`https://rwfc.net/player/${cleanFC}`, '_blank');
+     }
+ }
+});
