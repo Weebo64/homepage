@@ -570,6 +570,16 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('click', (e) => {
+    if(e.target.classList.contains('mii-image')) {
+        const fc = e.target.dataset.playerFc;
+        if (fc && fc !== 'N/A') {
+            const cleanFC = fc.replace(/[^0-9]/g, '');
+            window.open(`https://rwfc.net/player/${cleanFC}`, '_blank');
+        }
+        return;
+    }
+
+    
     if (e.target.classList.contains('openhost') && e.target.dataset.openhost === 'true') {
         const tooltip = e.target.nextElementSibling;
         if (tooltip && tooltip.classList.contains('openhost-tooltip')) {
@@ -592,7 +602,7 @@ setInterval(() => {
 
 fetchRooms();
 
-// const DISCORD_WEBHOOK_URL = 'xxx'; - Temporary Disbaled due to no server (I will add them later when im able to)
+// const DISCORD_WEBHOOK_URL = 'xxx'; - Temporary Disabled due to no server (I will add them later when im able to)
 
 const reportButton = document.getElementById('reportButton');
 const reportModal = document.getElementById('reportModal');
@@ -883,13 +893,4 @@ reportForm.addEventListener('submit', async (e) => {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit Report';
     }
-});
-
-document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('mii-image')) {
-        const fc = e.target.dataset.playerFc;
-        if (fc && fc !== 'N/A') {
-        window.open(`https://rwfc.net/player/${cleanFC}`, '_blank');
-     }
- }
 });
