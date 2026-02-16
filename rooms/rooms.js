@@ -382,7 +382,7 @@ async function convertMiiDataToStudioFormat(miiData) {
 
 function getMiiImageUrl(studioData) {
     if (!studioData) {
-        return 'https://via.placeholder.com/70?text=Mii';
+        return 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="70" height="70"%3E%3Crect fill="%23e0e0e0" width="70" height="70" rx="35"/%3E%3Ctext fill="%23757575" x="50%25" y="50%25" text-anchor="middle" dy=".35em" font-family="Arial,sans-serif" font-size="24"%3E%3F%3C/text%3E%3C/svg%3E';
     }
 
     return `https://studio.mii.nintendo.com/miis/image.png?data=${studioData}&type=face&expression=normal&width=270&bgColor=FFFFFF00&clothesColor=default&cameraXRotate=0&cameraYRotate=0&cameraZRotate=0&characterXRotate=0&characterYRotate=0&characterZRotate=0&lightDirectionMode=none&instanceCount=1&instanceRotationMode=model`;
@@ -404,7 +404,7 @@ async function getMiiImageForPlayer(player) {
         return imageUrl;
     }
 
-    const fallbackUrl = 'https://via.placeholder.com/70?text=Mii';
+    const fallbackUrl = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="70" height="70"%3E%3Crect fill="%23e0e0e0" width="70" height="70" rx="35"/%3E%3Ctext fill="%23757575" x="50%25" y="50%25" text-anchor="middle" dy=".35em" font-family="Arial,sans-serif" font-size="24"%3E%3F%3C/text%3E%3C/svg%3E';
     miiImageCache[fc] = fallbackUrl;
     return fallbackUrl;
 }
@@ -884,4 +884,5 @@ reportForm.addEventListener('submit', async (e) => {
         submitBtn.textContent = 'Submit Report';
     }
 });
+
 
