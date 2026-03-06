@@ -777,11 +777,6 @@ function startGame() {
         if (!isLandscape) {
             return;
         }
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen().catch(() => {});
-        } else if (document.documentElement.webkitRequestFullscreen) {
-            document.documentElement.webkitRequestFullscreen().catch(() => {});
-        }
     }
     
     gameState = 'playing';

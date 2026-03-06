@@ -18,6 +18,13 @@ body {
     position: relative;
 }
 
+@media (max-width: 768px) and (orientation: landscape) {
+    body {
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+    }
+}
+
 body::before {
     content: '';
     position: fixed;
@@ -73,6 +80,7 @@ body::before {
     z-index: 1;
     width: 100%;
     height: 100vh;
+    height: -webkit-fill-available;
     background: rgba(17, 24, 39, 0.8);
     backdrop-filter: blur(15px);
     border-radius: 0;
@@ -754,73 +762,124 @@ body::before {
 
 @media (max-width: 768px) and (orientation: landscape) {
     .game-header {
-        padding: 5px 10px;
+        padding: 3px 8px;
+        min-height: 35px;
+    }
+    
+    .score-display,
+    .high-score-display,
+    .coins-display {
+        gap: 2px;
     }
     
     .score-display .value,
     .high-score-display .value,
     .coins-display .value {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
     
     .score-display .label,
     .high-score-display .label,
     .coins-display .label {
-        font-size: 0.6rem;
+        font-size: 0.55rem;
     }
     
     .coin-sprite {
-        width: 16px;
-        height: 16px;
+        width: 14px;
+        height: 14px;
+    }
+    
+    .coins-value-container {
+        gap: 4px;
     }
     
     .game-title {
-        font-size: 2rem;
-    }
-    
-    .title-icon {
-        width: 35px;
-        height: 35px;
-    }
-    
-    .game-subtitle {
-        font-size: 0.9rem;
-    }
-    
-    .name-input {
-        font-size: 0.9rem;
-        padding: 10px 12px;
-    }
-    
-    .difficulty-btn {
-        padding: 12px 8px;
-        min-width: 110px;
-    }
-    
-    .diff-name {
-        font-size: 0.95rem;
-    }
-    
-    .diff-desc {
-        font-size: 0.7rem;
-    }
-    
-    .game-button {
-        padding: 10px 25px;
-        font-size: 0.95rem;
-    }
-    
-    .mobile-btn {
-        width: 90px;
-        height: 90px;
-    }
-    
-    .btn-icon {
         font-size: 1.8rem;
     }
     
+    .title-icon {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .game-subtitle {
+        font-size: 0.85rem;
+    }
+    
+    .tagline {
+        font-size: 0.75rem;
+    }
+    
+    .name-input {
+        font-size: 0.85rem;
+        padding: 8px 10px;
+    }
+    
+    .difficulty-selector {
+        gap: 10px;
+        margin: 20px 0;
+    }
+    
+    .difficulty-btn {
+        padding: 10px 6px;
+        min-width: 100px;
+    }
+    
+    .diff-icon {
+        font-size: 1.5rem;
+    }
+    
+    .diff-name {
+        font-size: 0.9rem;
+    }
+    
+    .diff-desc {
+        font-size: 0.65rem;
+    }
+    
+    .game-button {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .controls-info {
+        gap: 15px;
+        margin-top: 15px;
+    }
+    
+    .key {
+        padding: 8px 15px;
+        font-size: 1rem;
+        min-width: 50px;
+    }
+    
+    .action {
+        font-size: 0.85rem;
+    }
+    
+    .mobile-btn {
+        width: 85px;
+        height: 85px;
+    }
+    
+    .btn-icon {
+        font-size: 1.6rem;
+    }
+    
     .btn-label {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
+    }
+    
+    .screen-content {
+        padding: 20px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    .fullscreen-warning {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        margin: 15px 0;
     }
 }
 
