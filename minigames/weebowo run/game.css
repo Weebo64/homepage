@@ -761,125 +761,190 @@ body::before {
 }
 
 @media (max-width: 768px) and (orientation: landscape) {
+    html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: fixed;
+    }
+    
+    .game-container {
+        width: 100vw;
+        height: 100vh;
+        max-width: 100vw;
+        max-height: 100vh;
+    }
+    
+    #gameCanvas {
+        width: 100vw !important;
+        height: 100vh !important;
+        max-width: 100vw;
+        max-height: 100vh;
+        object-fit: contain;
+    }
+    
     .game-header {
-        padding: 3px 8px;
-        min-height: 35px;
+        padding: 2px 8px;
+        min-height: 30px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        background: rgba(0, 0, 0, 0.5);
     }
     
     .score-display,
     .high-score-display,
     .coins-display {
-        gap: 2px;
+        gap: 1px;
     }
     
     .score-display .value,
     .high-score-display .value,
     .coins-display .value {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
     
     .score-display .label,
     .high-score-display .label,
     .coins-display .label {
-        font-size: 0.55rem;
+        font-size: 0.5rem;
     }
     
     .coin-sprite {
-        width: 14px;
-        height: 14px;
+        width: 12px;
+        height: 12px;
     }
     
     .coins-value-container {
-        gap: 4px;
+        gap: 3px;
     }
     
-    .game-title {
-        font-size: 1.8rem;
+    .mobile-controls {
+        padding: 15px;
+        padding-bottom: max(15px, env(safe-area-inset-bottom));
+        padding-left: max(15px, env(safe-area-inset-left));
+        padding-right: max(15px, env(safe-area-inset-right));
     }
     
-    .title-icon {
-        width: 30px;
-        height: 30px;
+    .mobile-btn {
+        width: 75px;
+        height: 75px;
     }
     
-    .game-subtitle {
-        font-size: 0.85rem;
-    }
-    
-    .tagline {
-        font-size: 0.75rem;
-    }
-    
-    .name-input {
-        font-size: 0.85rem;
-        padding: 8px 10px;
-    }
-    
-    .difficulty-selector {
-        gap: 10px;
-        margin: 20px 0;
-    }
-    
-    .difficulty-btn {
-        padding: 10px 6px;
-        min-width: 100px;
-    }
-    
-    .diff-icon {
+    .btn-icon {
         font-size: 1.5rem;
     }
     
+    .btn-label {
+        font-size: 0.6rem;
+    }
+    
+    .screen-content {
+        padding: 10px;
+        max-height: 80vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .game-title {
+        font-size: 1.4rem;
+        margin-bottom: 8px;
+    }
+    
+    .title-icon {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .game-subtitle {
+        font-size: 0.75rem;
+        margin-bottom: 8px;
+    }
+    
+    .name-input-container {
+        margin: 12px 0;
+    }
+    
+    .name-input {
+        font-size: 0.8rem;
+        padding: 7px 10px;
+    }
+    
+    .difficulty-selector {
+        gap: 6px;
+        margin: 12px 0;
+    }
+    
+    .difficulty-btn {
+        padding: 7px 4px;
+        min-width: 85px;
+    }
+    
+    .diff-icon {
+        font-size: 1.2rem;
+    }
+    
     .diff-name {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
     }
     
     .diff-desc {
-        font-size: 0.65rem;
+        font-size: 0.55rem;
     }
     
     .game-button {
         padding: 8px 20px;
         font-size: 0.9rem;
+        margin: 8px;
     }
     
-    .controls-info {
-        gap: 15px;
-        margin-top: 15px;
-    }
-    
-    .key {
-        padding: 8px 15px;
-        font-size: 1rem;
-        min-width: 50px;
-    }
-    
-    .action {
-        font-size: 0.85rem;
-    }
-    
-    .mobile-btn {
-        width: 85px;
-        height: 85px;
-    }
-    
-    .btn-icon {
-        font-size: 1.6rem;
-    }
-    
-    .btn-label {
-        font-size: 0.65rem;
-    }
-    
-    .screen-content {
-        padding: 20px;
-        max-height: 90vh;
-        overflow-y: auto;
+    .mobile-fullscreen-btn {
+        padding: 10px 25px;
+        font-size: 0.95rem;
+        margin: 12px auto;
     }
     
     .fullscreen-warning {
-        padding: 10px 15px;
-        font-size: 0.9rem;
-        margin: 15px 0;
+        display: none;
+    }
+    
+    .game-over-title {
+        font-size: 2rem;
+    }
+    
+    .final-score .label {
+        font-size: 1rem;
+    }
+    
+    .final-score .value {
+        font-size: 2.5rem;
+    }
+    
+    .leaderboard-title {
+        font-size: 2rem;
+    }
+    
+    .leaderboard-entry {
+        padding: 10px 12px;
+    }
+    
+    .entry-rank {
+        font-size: 1rem;
+        min-width: 35px;
+    }
+    
+    .entry-name {
+        font-size: 1rem;
+    }
+    
+    .entry-details {
+        font-size: 0.75rem;
+    }
+    
+    .entry-score {
+        font-size: 1.3rem;
     }
 }
 

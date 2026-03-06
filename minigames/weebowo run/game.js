@@ -13,12 +13,17 @@ const closeLeaderboardBtn = document.getElementById('closeLeaderboardBtn');
 canvas.width = 1000;
 canvas.height = 500;
 function resizeCanvas() {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const isFullscreen = window.innerHeight === screen.height || 
                         document.fullscreenElement || 
                         document.webkitFullscreenElement || 
                         document.mozFullScreenElement ||
                         window.fullScreen;
-    if (isFullscreen) {
+    
+    if (isMobile && isFullscreen) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    } else if (isFullscreen) {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     } else {
