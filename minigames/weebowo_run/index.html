@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>WeebOwO Run - Weebo64</title>
+    <link rel="icon" type="image/png" href="../../images/Weebo_logo.png">
+    <meta property="og:title" content="WeebOwO Run">
+    <meta property="og:description" content="Jump, dodge, and run! Beat the high score!">
+    <meta property="og:image" content="thumbnail.png">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#b00b69">
+    <link rel="stylesheet" href="game.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <div class="score-display">
+                <span class="label">Score</span>
+                <span id="score" class="value">0</span>
+            </div>
+            <div class="coins-display">
+                <span class="label">Coins</span>
+                <div class="coins-value-container">
+                    <img id="coinSprite" class="coin-sprite" src="sprites/coin1.png" alt="Coin">
+                    <span id="coins" class="value">0</span>
+                </div>
+            </div>
+            <div class="volume-control" id="volumeControl">
+                <span class="label">🔊</span>
+                <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="90">
+            </div>
+            <div class="high-score-display">
+                <span class="label">High Score</span>
+                <span id="highScore" class="value">0</span>
+            </div>
+        </div>
+
+        <canvas id="gameCanvas"></canvas>
+
+        <div id="startScreen" class="overlay-screen">
+            <div class="screen-content">
+                <h1 class="game-title">
+                    <img src="sprites/weebowo_sprite_icon.png" alt="WeebOwO" class="title-icon">
+                    WeebOwO Run
+                </h1>
+                <p class="game-subtitle">Enter your name and choose difficulty</p>
+                
+                <div class="fullscreen-warning" id="fullscreenWarning">
+                    ⚠️ Press F11 to enter fullscreen mode before playing!
+                </div>
+                
+                <button id="mobileFullscreenBtn" class="mobile-fullscreen-btn hidden">
+                    📱 Enter Fullscreen
+                </button>
+                
+                <div class="name-input-container">
+                    <input type="text" id="playerNameInput" class="name-input" placeholder="Enter your name" maxlength="20" />
+                </div>
+                
+                <div class="difficulty-selector">
+                    <button class="difficulty-btn" data-difficulty="easy">
+                        <span class="diff-icon">🟢</span>
+                        <span class="diff-name">Easy</span>
+                        <span class="diff-desc">Power-up at 50 points</span>
+                    </button>
+                    <button class="difficulty-btn active" data-difficulty="medium">
+                        <span class="diff-icon">🟡</span>
+                        <span class="diff-name">Medium</span>
+                        <span class="diff-desc">Power-up at 100 points</span>
+                    </button>
+                    <button class="difficulty-btn" data-difficulty="hard">
+                        <span class="diff-icon">🔴</span>
+                        <span class="diff-name">Hard</span>
+                        <span class="diff-desc">Power-up at 150 points</span>
+                    </button>
+                </div>
+                
+                <button id="startGameBtn" class="game-button">Start Game</button>
+                
+                <div class="controls-info">
+                    <div class="control-item">
+                        <span class="key">SPACE</span>
+                        <span class="action">Jump</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="key">↓</span>
+                        <span class="action">Duck</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="gameOverScreen" class="overlay-screen hidden">
+            <div class="screen-content">
+                <h2 class="game-over-title">Game Over!</h2>
+                <div class="final-score">
+                    <span class="label">Your Score</span>
+                    <span id="finalScore" class="value">0</span>
+                </div>
+                <div id="newHighScore" class="new-high-score hidden">
+                    🎉 New High Score! 🎉
+                </div>
+                <button id="restartBtn" class="game-button">Play Again</button>
+                <button id="leaderboardBtn" class="game-button secondary">View Leaderboard</button>
+            </div>
+        </div>
+
+        <div id="leaderboardScreen" class="overlay-screen hidden">
+            <div class="screen-content leaderboard-content">
+                <h2 class="leaderboard-title">🏆 Leaderboard</h2>
+                <div id="leaderboardList" class="leaderboard-list"></div>
+                <button id="closeLeaderboardBtn" class="game-button">Back to Game</button>
+            </div>
+        </div>
+
+        <div id="fullscreenExitScreen" class="overlay-screen hidden">
+            <div class="screen-content">
+                <img src="../../images/aha.png" alt="Aha" class="fullscreen-exit-image" />
+                <h2 class="fullscreen-exit-title">Are you sure?</h2>
+                <p class="fullscreen-exit-text">Exiting fullscreen will pause the game</p>
+                <div class="fullscreen-exit-buttons">
+                    <button id="continueFullscreenBtn" class="game-button">Stay in Fullscreen</button>
+                    <button id="exitFullscreenBtn" class="game-button secondary">Exit Game</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="orientationWarning" class="overlay-screen">
+            <div class="screen-content">
+                <div class="rotate-icon">📱 ↻</div>
+                <h2 class="orientation-title">Rotate Your Device</h2>
+                <p class="orientation-text">This game only works in landscape mode</p>
+            </div>
+        </div>
+
+        <div class="mobile-controls" id="mobileControls">
+            <button class="mobile-btn duck-btn" id="duckBtn">
+                <span class="btn-icon">↓</span>
+                <span class="btn-label">Duck</span>
+            </button>
+            <button class="mobile-btn jump-btn" id="jumpBtn">
+                <span class="btn-icon">↑</span>
+                <span class="btn-label">Jump</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
