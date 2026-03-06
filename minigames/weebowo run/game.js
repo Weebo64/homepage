@@ -78,7 +78,15 @@ audio.jump.loop = false;
 audio.hitted.loop = false;
 audio.death.loop = false;
 
+
+audio.mainTheme.volume = 0.9;
+audio.fcoTheme.volume = 0.9;
 audio.horseTheme.volume = 0.9;
+audio.powerUp.volume = 0.9;
+audio.coin.volume = 0.9;
+audio.jump.volume = 0.9;
+audio.hitted.volume = 0.9;
+audio.death.volume = 0.9;
 
 let fcoLoopStarted = false;
 
@@ -1119,3 +1127,4 @@ if (isMobile) {
 checkOrientation();
 init();
 draw();
+
