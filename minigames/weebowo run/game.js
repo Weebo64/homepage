@@ -78,15 +78,7 @@ audio.jump.loop = false;
 audio.hitted.loop = false;
 audio.death.loop = false;
 
-
-audio.mainTheme.volume = 0.9;
-audio.fcoTheme.volume = 0.9;
 audio.horseTheme.volume = 0.9;
-audio.powerUp.volume = 0.9;
-audio.coin.volume = 0.9;
-audio.jump.volume = 0.9;
-audio.hitted.volume = 0.9;
-audio.death.volume = 0.9;
 
 let fcoLoopStarted = false;
 
@@ -1128,3 +1120,21 @@ checkOrientation();
 init();
 draw();
 
+const mobileFullscreenBtn = document.getElementById('mobileFullscreenBtn');
+
+if (isMobile) {
+    mobileFullscreenBtn.classList.remove('hidden');
+    
+    mobileFullscreenBtn.addEventListener('click', () => {
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen().catch(err => console.log('Fullscreen error:', err));
+        } else if (elem.webkitRequestFullscreen) {
+            elem.webkitRequestFullscreen().catch(err => console.log('Fullscreen error:', err));
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen().catch(err => console.log('Fullscreen error:', err));
+        }
+    });
+} else {
+    mobileFullscreenBtn.classList.add('hidden');
+}

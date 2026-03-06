@@ -892,3 +892,117 @@ body::before {
         display: none !important;
     }
 }
+
+.mobile-fullscreen-btn {
+    display: none;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.4);
+    margin: 20px auto;
+}
+
+.mobile-fullscreen-btn:active {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(78, 205, 196, 0.6);
+}
+
+.mobile-fullscreen-btn.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-fullscreen-btn {
+        display: block;
+    }
+    
+    .controls-info {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+    .screen-content {
+        padding: 15px;
+        max-height: 85vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .game-title {
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+    }
+    
+    .title-icon {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .game-subtitle {
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+    }
+    
+    .name-input-container {
+        margin: 15px 0;
+    }
+    
+    .name-input {
+        font-size: 0.85rem;
+        padding: 8px 10px;
+    }
+    
+    .difficulty-selector {
+        gap: 8px;
+        margin: 15px 0;
+    }
+    
+    .difficulty-btn {
+        padding: 8px 5px;
+        min-width: 90px;
+    }
+    
+    .diff-icon {
+        font-size: 1.3rem;
+    }
+    
+    .diff-name {
+        font-size: 0.85rem;
+    }
+    
+    .diff-desc {
+        font-size: 0.6rem;
+    }
+    
+    .game-button {
+        padding: 10px 25px;
+        font-size: 1rem;
+        margin: 10px;
+    }
+    
+    .mobile-fullscreen-btn {
+        padding: 12px 30px;
+        font-size: 1rem;
+        margin: 15px auto;
+    }
+    
+    .fullscreen-warning {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) and (orientation: portrait) {
+    .screen-content {
+        padding: 20px;
+        max-height: 90vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
