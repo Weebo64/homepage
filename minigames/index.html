@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minigames - Weebo64</title>
+    <link rel="icon" type="image/png" href="../images/Weebo_logo.png">
+    <meta property="og:title" content="Weebo64 - Minigames">
+    <meta property="og:description" content="Play fun minigames and compete on the leaderboard!">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#b00b69">
+    <link rel="stylesheet" href="minigames.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="loading-screen">
+        <div class="loader">
+            <div class="loader-circle"></div>
+            <div class="loader-text">Loading Minigames...</div>
+        </div>
+    </div>
+    <canvas id="stars"></canvas>
+    <div class="floating-renders">
+        <img src="../images/Weebo.png" alt="Weebo" class="render render-1">
+        <img src="../images/WeebOwO.png" alt="WeebOwO" class="render render-2">
+        <img src="../images/weebo64.png" alt="Weebo64" class="render render-3">
+        <img src="../images/weebowo64.png" alt="WeebOwO64" class="render render-4">
+        <img src="../images/Weebo_logo.png" alt="Weebo Logo" class="render render-logo render-logo-1">
+        <img src="../images/Weebo_logo.png" alt="Weebo Logo" class="render render-logo render-logo-2">
+        <img src="../images/Weebo_logo.png" alt="Weebo Logo" class="render render-logo render-logo-3">
+    </div>
+    <div class="theme-switcher">
+        <button id="theme-toggle" aria-label="Toggle theme">
+            <span class="theme-icon">🌙</span>
+        </button>
+        <div class="theme-menu" id="theme-menu">
+            <button class="theme-option" data-theme="dark">🌙 Dark</button>
+            <button class="theme-option" data-theme="light">☀️ Light</button>
+            <button class="theme-option" data-theme="auto">💻 System</button>
+        </div>
+    </div>
+    <a href="../" class="back-button" aria-label="Back to home">
+        <span class="back-icon">←</span>
+        <span class="back-text">Back</span>
+    </a>
+    <div class="container">
+        <header>
+            <div class="hero-section">
+                <h1>🎮 Minigames</h1>
+                <p class="subtitle">Fun Games & Leaderboards</p>
+                <p class="tagline">Challenge yourself and compete with others!</p>
+            </div>
+        </header>
+        <section class="games-section">
+            <div class="games-grid">
+                <a href="weebowo%20run/" class="game-card">
+                    <div class="game-thumbnail">
+                        <img src="weebowo run/sprites/thumbnail.png" alt="WeebOwO Run">
+                    </div>
+                    <h3 class="game-title">WeebOwO Run</h3>
+                    <p class="game-description">Jump and dodge obstacles in this endless runner!</p>
+                    <p class="game-credits">Sprites by fco64 & kytronix</p>
+                    <div class="game-badge">NEW</div>
+                </a>
+                
+                <div class="game-card coming-soon-card">
+                    <div class="game-icon">🎯</div>
+                    <h3 class="game-title">Coming Soon</h3>
+                    <p class="game-description">More games on the way!</p>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <p>Made with 💜 by Weebo64</p>
+            <p class="footer-note">am silly asf</p>
+        </footer>
+    </div>
+    <script src="../stars.js"></script>
+    <script src="minigames.js"></script>
+</body>
+</html>
