@@ -25,6 +25,7 @@ function resizeCanvas() {
         canvas.width = 1000;
         canvas.height = 500;
     }
+    updatePlayerPosition();
 }
 window.addEventListener('resize', resizeCanvas);
 document.addEventListener('fullscreenchange', resizeCanvas);
@@ -185,6 +186,15 @@ const player = {
     walkFrame: 0,
     walkAnimSpeed: 8
 };
+
+function updatePlayerPosition() {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (isMobile) {
+        player.x = canvas.width * 0.3;
+    } else {
+        player.x = 100;
+    }
+}
 const obstacles = [];
 const clouds = [];
 const grounds = [];
@@ -245,6 +255,7 @@ function createGround() {
 }
 function init() {
     resizeCanvas();
+    updatePlayerPosition();
     player.scale = player.baseScale;
     player.width = 0;
     player.height = 0;
@@ -291,6 +302,10 @@ function duck(isDucking) {
     }
 }
 function updatePlayer() {
+    if (gameState === 'poweringUp' || gameState === 'poweringDown') {
+        return;
+    }
+    
     if (player.jumping && isJumpKeyHeld && player.velocityY < 0 && jumpHoldTime < MAX_JUMP_HOLD_TIME) {
         player.velocityY += JUMP_HOLD_FORCE;
         jumpHoldTime++;
@@ -452,11 +467,8 @@ function updatePowerUpAnimation() {
             player.scale = player.powerUpScale;
         }
         if (sprites.walk1.naturalWidth > 0) {
-            const oldHeight = player.height;
             player.width = sprites.walk1.naturalWidth * player.scale;
             player.height = sprites.walk1.naturalHeight * player.scale;
-            const heightDiff = player.height - oldHeight;
-            player.y -= heightDiff;
         }
     } else {
         player.scale = player.powerUpScale;
@@ -698,7 +710,6 @@ function gameLoop() {
     }
     if (gameState === 'poweringUp') {
         updatePowerUpAnimation();
-        updatePlayer();
         draw();
         requestAnimationFrame(gameLoop);
         return;
@@ -706,7 +717,6 @@ function gameLoop() {
 
     if (gameState === 'poweringDown') {
         updatePowerDownAnimation();
-        updatePlayer();
         draw();
         requestAnimationFrame(gameLoop);
         return;
