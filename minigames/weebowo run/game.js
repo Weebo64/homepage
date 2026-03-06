@@ -78,6 +78,8 @@ audio.jump.loop = false;
 audio.hitted.loop = false;
 audio.death.loop = false;
 
+audio.horseTheme.volume = 0.9;
+
 let fcoLoopStarted = false;
 
 audio.fcoTheme.addEventListener('timeupdate', function() {
