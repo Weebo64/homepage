@@ -783,9 +783,21 @@ body::before {
         object-fit: contain;
     }
     
+    .overlay-screen {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .screen-content {
+        padding: 8px 15px;
+        max-height: none;
+        min-height: 100vh;
+        overflow-y: visible;
+    }
+    
     .game-header {
         padding: 2px 8px;
-        min-height: 30px;
+        min-height: 28px;
         position: absolute;
         top: 0;
         left: 0;
@@ -803,107 +815,106 @@ body::before {
     .score-display .value,
     .high-score-display .value,
     .coins-display .value {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
     
     .score-display .label,
     .high-score-display .label,
     .coins-display .label {
-        font-size: 0.5rem;
+        font-size: 0.48rem;
     }
     
     .coin-sprite {
-        width: 12px;
-        height: 12px;
+        width: 11px;
+        height: 11px;
     }
     
     .coins-value-container {
-        gap: 3px;
+        gap: 2px;
     }
     
     .mobile-controls {
-        padding: 15px;
-        padding-bottom: max(15px, env(safe-area-inset-bottom));
-        padding-left: max(15px, env(safe-area-inset-left));
-        padding-right: max(15px, env(safe-area-inset-right));
+        padding: 12px;
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
+        padding-left: max(12px, env(safe-area-inset-left));
+        padding-right: max(12px, env(safe-area-inset-right));
     }
     
     .mobile-btn {
-        width: 75px;
-        height: 75px;
+        width: 70px;
+        height: 70px;
     }
     
     .btn-icon {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
     
     .btn-label {
-        font-size: 0.6rem;
-    }
-    
-    .screen-content {
-        padding: 10px;
-        max-height: 80vh;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    .game-title {
-        font-size: 1.4rem;
-        margin-bottom: 8px;
-    }
-    
-    .title-icon {
-        width: 25px;
-        height: 25px;
-    }
-    
-    .game-subtitle {
-        font-size: 0.75rem;
-        margin-bottom: 8px;
-    }
-    
-    .name-input-container {
-        margin: 12px 0;
-    }
-    
-    .name-input {
-        font-size: 0.8rem;
-        padding: 7px 10px;
-    }
-    
-    .difficulty-selector {
-        gap: 6px;
-        margin: 12px 0;
-    }
-    
-    .difficulty-btn {
-        padding: 7px 4px;
-        min-width: 85px;
-    }
-    
-    .diff-icon {
-        font-size: 1.2rem;
-    }
-    
-    .diff-name {
-        font-size: 0.8rem;
-    }
-    
-    .diff-desc {
         font-size: 0.55rem;
     }
     
+    .game-title {
+        font-size: 1.2rem;
+        margin-bottom: 3px;
+    }
+    
+    .title-icon {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .game-subtitle {
+        font-size: 0.7rem;
+        margin-bottom: 5px;
+    }
+    
+    .name-input-container {
+        margin: 8px 0;
+    }
+    
+    .name-input {
+        font-size: 0.75rem;
+        padding: 8px 12px;
+    }
+    
+    .difficulty-selector {
+        gap: 5px;
+        margin: 8px 0;
+        flex-direction: column;
+    }
+    
+    .difficulty-btn {
+        padding: 8px 10px;
+        min-width: 100%;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+    
+    .diff-icon {
+        font-size: 1.1rem;
+    }
+    
+    .diff-name {
+        font-size: 0.75rem;
+    }
+    
+    .diff-desc {
+        font-size: 0.5rem;
+    }
+    
     .game-button {
-        padding: 8px 20px;
+        padding: 10px 25px;
         font-size: 0.9rem;
-        margin: 8px;
+        margin: 8px 0;
+        width: 100%;
     }
     
     .mobile-fullscreen-btn {
-        padding: 10px 25px;
-        font-size: 0.95rem;
-        margin: 12px auto;
+        padding: 8px 20px;
+        font-size: 0.85rem;
+        margin: 8px 0;
+        width: 100%;
     }
     
     .fullscreen-warning {
@@ -911,40 +922,65 @@ body::before {
     }
     
     .game-over-title {
-        font-size: 2rem;
+        font-size: 1.6rem;
+        margin-bottom: 12px;
+    }
+    
+    .final-score {
+        margin-bottom: 12px;
     }
     
     .final-score .label {
-        font-size: 1rem;
+        font-size: 0.85rem;
     }
     
     .final-score .value {
-        font-size: 2.5rem;
-    }
-    
-    .leaderboard-title {
         font-size: 2rem;
     }
     
+    .new-high-score {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+    
+    .leaderboard-title {
+        font-size: 1.6rem;
+        margin-bottom: 12px;
+    }
+    
+    .leaderboard-list {
+        max-height: 40vh;
+        margin-bottom: 12px;
+    }
+    
     .leaderboard-entry {
-        padding: 10px 12px;
+        padding: 8px 10px;
+        margin-bottom: 5px;
     }
     
     .entry-rank {
-        font-size: 1rem;
-        min-width: 35px;
+        font-size: 0.9rem;
+        min-width: 32px;
     }
     
     .entry-name {
-        font-size: 1rem;
+        font-size: 0.8rem;
     }
     
     .entry-details {
-        font-size: 0.75rem;
+        font-size: 0.65rem;
     }
     
     .entry-score {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
+    }
+    
+    .orientation-title {
+        font-size: 1.8rem;
+    }
+    
+    .orientation-text {
+        font-size: 1rem;
     }
 }
 
