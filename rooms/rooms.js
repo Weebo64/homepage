@@ -1,4 +1,5 @@
-const API_ENDPOINT = 'https://rwfc.net/api/groups';
+const API_ENDPOINT = 'https://umapyoi.net/api/v1/rr-rooms';
+const FALLBACK_ENDPOINT = 'https://rwfc.net/api/groups';
 const CORS_PROXIES = [
     'https://api.allorigins.win/raw?url=',
     'https://corsproxy.io/?',
@@ -106,15 +107,74 @@ async function fetchRooms() {
     try {
         let lastError;
 
+        try {
+            console.log('Trying umapyoi.net API...');
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+            const response = await fetch(API_ENDPOINT, {
+                signal: controller.signal
+            });
+
+            clearTimeout(timeoutId);
+
+            if (response.ok) {
+                const groups = await response.json();
+                console.log('Success with umapyoi.net API');
+                loading.style.display = 'none';
+
+                if (!groups || groups.length === 0) {
+                    roomsGrid.innerHTML = '<div class="no-rooms">🏁 No active rooms at the moment</div>';
+                    updateStats(0, 0);
+                    return;
+                }
+
+                displayRooms(groups);
+                return;
+            }
+        } catch (apiErr) {
+            console.log('umapyoi.net API failed, trying direct fetch...', apiErr.message);
+        }
+
+        try {
+            console.log('Trying direct RWFC fetch...');
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+            const response = await fetch(FALLBACK_ENDPOINT, {
+                signal: controller.signal,
+                mode: 'cors'
+            });
+
+            clearTimeout(timeoutId);
+
+            if (response.ok) {
+                const groups = await response.json();
+                console.log('Success with direct RWFC fetch');
+                loading.style.display = 'none';
+
+                if (!groups || groups.length === 0) {
+                    roomsGrid.innerHTML = '<div class="no-rooms">🏁 No active rooms at the moment</div>';
+                    updateStats(0, 0);
+                    return;
+                }
+
+                displayRooms(groups);
+                return;
+            }
+        } catch (directErr) {
+            console.log('Direct RWFC fetch failed, trying proxies...', directErr.message);
+        }
+
         for (let i = 0; i < CORS_PROXIES.length; i++) {
             try {
                 const proxy = CORS_PROXIES[(currentProxyIndex + i) % CORS_PROXIES.length];
                 console.log(`Trying proxy: ${proxy}`);
 
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 10000);
+                const timeoutId = setTimeout(() => controller.abort(), 8000);
 
-                const response = await fetch(proxy + encodeURIComponent(API_ENDPOINT), {
+                const response = await fetch(proxy + encodeURIComponent(FALLBACK_ENDPOINT), {
                     signal: controller.signal
                 });
 
@@ -146,7 +206,7 @@ async function fetchRooms() {
             }
         }
 
-        throw lastError || new Error('All proxies failed');
+        throw lastError || new Error('All methods failed');
 
     } catch (err) {
         console.error('Error fetching rooms:', err);
@@ -383,6 +443,7 @@ async function convertMiiDataToStudioFormat(miiData) {
 
 function getMiiImageUrl(studioData) {
     if (!studioData) {
+        // Use a data URI fallback instead of via.placeholder.com
         return 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="70" height="70"%3E%3Crect fill="%23e0e0e0" width="70" height="70" rx="35"/%3E%3Ctext fill="%23757575" x="50%25" y="50%25" text-anchor="middle" dy=".35em" font-family="Arial,sans-serif" font-size="24"%3E%3F%3C/text%3E%3C/svg%3E';
     }
 
@@ -405,6 +466,7 @@ async function getMiiImageForPlayer(player) {
         return imageUrl;
     }
 
+    // Use a data URI fallback instead of via.placeholder.com
     const fallbackUrl = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="70" height="70"%3E%3Crect fill="%23e0e0e0" width="70" height="70" rx="35"/%3E%3Ctext fill="%23757575" x="50%25" y="50%25" text-anchor="middle" dy=".35em" font-family="Arial,sans-serif" font-size="24"%3E%3F%3C/text%3E%3C/svg%3E';
     miiImageCache[fc] = fallbackUrl;
     return fallbackUrl;
@@ -571,7 +633,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('click', (e) => {
-    if(e.target.classList.contains('mii-image')) {
+    // Handle Mii image clicks to redirect to RWFC player page
+    if (e.target.classList.contains('mii-image')) {
         const fc = e.target.dataset.playerFc;
         if (fc && fc !== 'N/A') {
             const cleanFC = fc.replace(/[^0-9]/g, '');
@@ -579,8 +642,8 @@ document.addEventListener('click', (e) => {
         }
         return;
     }
-
     
+    // Handle openhost tooltip clicks
     if (e.target.classList.contains('openhost') && e.target.dataset.openhost === 'true') {
         const tooltip = e.target.nextElementSibling;
         if (tooltip && tooltip.classList.contains('openhost-tooltip')) {
@@ -603,7 +666,7 @@ setInterval(() => {
 
 fetchRooms();
 
-// const DISCORD_WEBHOOK_URL = 'xxx'; - Temporary Disabled due to no server (I will add them later when im able to)
+const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1434643639476420889/HLW7ffk1B0-4UeGzl-8UsaLvqLjpaC7qtHz1dI8-HWWwW5b5HCgsA96_vJkExkm5Yu5A';
 
 const reportButton = document.getElementById('reportButton');
 const reportModal = document.getElementById('reportModal');
@@ -648,13 +711,50 @@ async function lookupMiiName(friendCode) {
     if (cleanFC.length !== 12) return null;
 
     try {
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+            const response = await fetch(API_ENDPOINT, {
+                signal: controller.signal
+            });
+
+            clearTimeout(timeoutId);
+
+            if (response.ok) {
+                const groups = await response.json();
+
+                for (const group of groups) {
+                    if (group.players) {
+                        for (const player of Object.values(group.players)) {
+                            if (player.fc) {
+                                const playerFC = player.fc.replace(/[^0-9]/g, '');
+                                if (playerFC === cleanFC) {
+                                    const miiName = (player.mii && player.mii[0] && player.mii[0].name) 
+                                                    || player.name 
+                                                    || player.n 
+                                                    || null;
+                                    if (miiName) {
+                                        return miiName;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return null;
+            }
+        } catch (apiErr) {
+            console.log('umapyoi.net lookup failed, trying proxies...');
+        }
+
         for (let i = 0; i < CORS_PROXIES.length; i++) {
             try {
                 const proxy = CORS_PROXIES[(currentProxyIndex + i) % CORS_PROXIES.length];
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 5000);
 
-                const response = await fetch(proxy + encodeURIComponent(API_ENDPOINT), {
+                const response = await fetch(proxy + encodeURIComponent(FALLBACK_ENDPOINT), {
                     signal: controller.signal
                 });
 
@@ -895,5 +995,3 @@ reportForm.addEventListener('submit', async (e) => {
         submitBtn.textContent = 'Submit Report';
     }
 });
-
-
