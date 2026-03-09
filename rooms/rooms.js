@@ -1,8 +1,8 @@
-const API_ENDPOINT = 'http://rwfc.net/api/groups';
+const API_ENDPOINT = 'https://rwfc.net/api/groups';
 const CORS_PROXIES = [
     'https://api.allorigins.win/raw?url=',
-    'https://api.codetabs.com/v1/proxy?quest=',
-    'https://corsproxy.io/?'
+    'https://corsproxy.io/?',
+    'https://api.codetabs.com/v1/proxy?quest='
 ];
 let currentProxyIndex = 0;
 
@@ -894,3 +894,4 @@ reportForm.addEventListener('submit', async (e) => {
         submitBtn.textContent = 'Submit Report';
     }
 });
+
