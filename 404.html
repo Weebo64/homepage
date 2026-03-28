@@ -4,14 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Permissions-Policy" content="unload=()">
     <title>404 - Page Not Found</title>
-    <link rel="icon" type="image/png" href="/images/Weebo_logo.png">
+    <link rel="icon" type="image/png" href="images/Weebo_logo.png">
     <meta name="theme-color" content="#9300C3">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --bg-secondary: #1a1a2e;
+            --border-color: #2d2d44;
+        }
+
+        body.light-mode {
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --bg-secondary: #f5f5f7;
+            --border-color: #d2d2d7;
+        }
+
         .error-container {
             display: flex;
             flex-direction: column;
@@ -49,10 +64,12 @@
         }
 
         .error-illustration {
-            width: 200px;
-            height: 200px;
-            margin: 30px 0;
+            width: 300px;
+            height: 300px;
+            margin: 30px auto;
             object-fit: contain;
+            border-radius: 12px;
+            display: block;
         }
 
         .error-actions {
@@ -117,6 +134,12 @@
             .error-button {
                 width: 100%;
             }
+
+            .error-illustration {
+                width: 100%;
+                max-width: 390px;
+                height: auto;
+            }
         }
     </style>
 </head>
@@ -145,7 +168,7 @@
             <h1 class="error-code">404</h1>
             <h2 class="error-message">Oops! Page Not Found</h2>
             
-            <img src="/images/aha.png" alt="Oops!" class="error-illustration">
+            <img src="images/aha.png" alt="Oops!" class="error-illustration">
 
             <p class="error-description">
                 Oh-Uh looks like something wrong happened :<<br>
@@ -163,7 +186,8 @@
         </footer>
     </div>
 
-    <script src="/script.js"></script>
+    <script src="script.js"></script>
+    <script src="404.js"></script>
 </body>
 
 </html>
