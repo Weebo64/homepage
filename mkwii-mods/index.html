@@ -28,6 +28,28 @@
         <img src="../images/teto.png" alt="Teto" class="render render-2">
         <img src="../images/Daisyette (Transparent).png" alt="Daisyette" class="render render-3">
     </div>
+    
+    <!-- NSFW Warning Modal -->
+    <div id="nsfwModal" class="nsfw-modal">
+        <div class="nsfw-modal-content" id="ageVerification">
+            <h2>⚠️ Warning +18</h2>
+            <p>This is an NSFW mod. This content is intended for adults only.</p>
+            <p style="margin-top: 15px; font-weight: 600;">Please enter your date of birth:</p>
+            <div class="birthday-input">
+                <input type="date" id="birthdayInput" max="2024-12-31">
+            </div>
+            <div class="nsfw-modal-buttons">
+                <button class="nsfw-modal-button confirm" id="confirmNsfw">Verify & Continue</button>
+                <button class="nsfw-modal-button cancel" id="cancelNsfw">Go Back</button>
+            </div>
+        </div>
+        <div class="nsfw-modal-content" id="tooYoung" style="display: none;">
+            <h2 style="color: #ff3333;">too young dumbahh</h2>
+            <img src="https://lede-admin.dailydot.com/wp-content/uploads/sites/69/2024/11/nuh-uh-beocord.gif?w=710&quality=75" alt="Nuh uh" style="max-width: 100%; border-radius: 10px; margin: 20px 0;">
+            <p>You must be 18 or older to view this content.</p>
+        </div>
+    </div>
+    
     <a href="../" class="back-button" aria-label="Back to home">
         <span class="back-icon">←</span>
         <span class="back-text">Back</span>
@@ -77,7 +99,17 @@
                     </div>
                     <div class="character-info">
                         <h3>Ellen Joe</h3>
-                        <p>Character Mod (View on Website)</p>
+                        <p>Shark woman in mkwii 👀</p>
+                    </div>
+                </a>
+
+                <a href="https://gamebanana.com/mods/671610" target="_blank" class="character-card nsfw-card" data-nsfw="true">
+                    <div class="character-image blurred-image">
+                        <img src="https://images.gamebanana.com/img/ss/mods/69e919bcd6a8e.jpg" alt="Thick Rosalina">
+                    </div>
+                    <div class="character-info">
+                        <h3>Thick Rosalina</h3>
+                        <p>⚠️ NSFW Mod - 18+</p>
                     </div>
                 </a>
             </div>
@@ -113,6 +145,91 @@
         </footer>
     </div>
     <script src="stars.js"></script>
+    <script>
+        // NSFW Modal Handler with Age Verification
+        const nsfwModal = document.getElementById('nsfwModal');
+        const nsfwCard = document.querySelector('.nsfw-card');
+        const confirmBtn = document.getElementById('confirmNsfw');
+        const cancelBtn = document.getElementById('cancelNsfw');
+        const birthdayInput = document.getElementById('birthdayInput');
+        const ageVerification = document.getElementById('ageVerification');
+        const tooYoung = document.getElementById('tooYoung');
+        let nsfwLink = '';
+
+        if (nsfwCard) {
+            nsfwCard.addEventListener('click', function(e) {
+                e.preventDefault();
+                nsfwLink = this.getAttribute('href');
+                nsfwModal.classList.add('show');
+                ageVerification.style.display = 'block';
+                tooYoung.style.display = 'none';
+            });
+        }
+
+        confirmBtn.addEventListener('click', function() {
+            const birthday = birthdayInput.value;
+            
+            if (!birthday) {
+                alert('Please enter your date of birth!');
+                return;
+            }
+
+            // Calculate age
+            const birthDate = new Date(birthday);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            if (age >= 18) {
+                // User is 18 or older, open the link
+                if (nsfwLink) {
+                    window.open(nsfwLink, '_blank');
+                }
+                nsfwModal.classList.remove('show');
+                birthdayInput.value = '';
+            } else {
+                // User is under 18, show "too young" message
+                ageVerification.style.display = 'none';
+                tooYoung.style.display = 'block';
+                
+                // Redirect to home after 3 seconds
+                setTimeout(function() {
+                    window.location.href = '../';
+                }, 3000);
+            }
+        });
+
+        cancelBtn.addEventListener('click', function() {
+            nsfwModal.classList.remove('show');
+            birthdayInput.value = '';
+            ageVerification.style.display = 'block';
+            tooYoung.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        nsfwModal.addEventListener('click', function(e) {
+            if (e.target === nsfwModal) {
+                nsfwModal.classList.remove('show');
+                birthdayInput.value = '';
+                ageVerification.style.display = 'block';
+                tooYoung.style.display = 'none';
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && nsfwModal.classList.contains('show')) {
+                nsfwModal.classList.remove('show');
+                birthdayInput.value = '';
+                ageVerification.style.display = 'block';
+                tooYoung.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 
 </html>
