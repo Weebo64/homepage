@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeebOwO - Commands</title>
+    <link rel="icon" type="image/png" href="bot_pfp.png">
+
+    <!-- Discord Embed Meta Tags -->
+    <meta property="og:title" content="WeebOwO - Commands">
+    <meta property="og:description" content="All 98 commands available in WeebOwO!">
+    <meta property="og:image" content="bot_pfp.png">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#9300C3">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="WeebOwO - Commands">
+    <meta name="twitter:description" content="All 98 commands available in WeebOwO!">
+    <meta name="twitter:image" content="bot_pfp.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader">
+            <div class="loader-circle"></div>
+            <div class="loader-text">WeebOwO's Commands</div>
+        </div>
+    </div>
+
+    <canvas id="particles"></canvas>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button id="theme-toggle" aria-label="Toggle theme">
+            <span class="theme-icon">🌙</span>
+        </button>
+        <div class="theme-menu" id="theme-menu">
+            <button class="theme-option" data-theme="dark">🌙 Dark</button>
+            <button class="theme-option" data-theme="light">☀️ Light</button>
+            <button class="theme-option" data-theme="auto">💻 System</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <div class="logo-section">
+                <img src="bot_pfp.png" alt="WeebOwO" class="bot-avatar">
+                <h1>WeebOwO Commands</h1>
+            </div>
+            <p class="tagline">All 98 commands available in WeebOwO :3</p>
+            <div style="margin-top: 20px;">
+                <a href="index.html" class="invite-btn" style="display: inline-block; padding: 12px 30px; text-decoration: none;">
+                    ← Back to Home
+                </a>
+            </div>
+        </header>
+
+        <!-- Commands Section -->
+        <section class="commands">
+            <div class="command-category">
+                <h3>🎮 Fun Commands</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <code>/weebowo</code>
+                        <span>Cute random images (Art by kytronix & funnyhoohooman)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/meet-weebowo</code>
+                        <span>Meet WeebOwO! She'll introduce herself! :3c</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/cinema</code>
+                        <span>Sends the 'absolute_cinema.png' image</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/hug &lt;user&gt;</code>
+                        <span>Give someone a warm hug</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/pat &lt;user&gt;</code>
+                        <span>Pat someone on the head</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/kiss &lt;user&gt;</code>
+                        <span>Give someone a kiss</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/slap &lt;user&gt;</code>
+                        <span>Slap someone</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/poke &lt;user&gt;</code>
+                        <span>Poke someone</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/bonk &lt;user&gt;</code>
+                        <span>Bonk someone (go to horny jail!)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/ship &lt;user1&gt; &lt;user2&gt;</code>
+                        <span>Ship two users together with compatibility</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/8ball &lt;question&gt;</code>
+                        <span>Ask the magic 8-ball a question</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/car</code>
+                        <span>Get a funny, wholesome, cute, or silly cat gif</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/pugs</code>
+                        <span>Get a funny, wholesome, cute, or silly pug gif</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/coinflip &lt;heads/tails&gt;</code>
+                        <span>Flip a coin and guess the result</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/dice [sides]</code>
+                        <span>Roll a dice (default 6 sides)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/rps &lt;choice&gt;</code>
+                        <span>Rock, Paper, Scissors</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/choose &lt;options&gt;</code>
+                        <span>Let the bot choose from comma-separated options</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/rate &lt;thing&gt;</code>
+                        <span>Rate something from 0 to 10</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/say &lt;message&gt;</code>
+                        <span>The bot says your message</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/poll &lt;question&gt;</code>
+                        <span>Create a quick yes/no poll</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/hine</code>
+                        <span>Trust me bro</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-category">
+                <h3>🎮 Games & Entertainment</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <code>/trivia [difficulty] [category]</code>
+                        <span>Play a trivia game with 15 questions</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/akinator [language] [theme]</code>
+                        <span>Play Akinator! Think of a character and I'll guess it! :3</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-category">
+                <h3>✨ Text Fun Commands</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <code>/color &lt;color&gt; &lt;text&gt;</code>
+                        <span>Make your text appear in different colors</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/reverse &lt;text&gt;</code>
+                        <span>Reverse your text</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/mock &lt;text&gt;</code>
+                        <span>MoCk YoUr TeXt LiKe ThIs</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/uwuify &lt;text&gt;</code>
+                        <span>Make your text more uwu</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/ascii &lt;text&gt;</code>
+                        <span>Convert text to ASCII art (max 10 chars)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/emojify &lt;text&gt;</code>
+                        <span>Convert text to emoji letters</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-category">
+                <h3>🖼️ Image Commands</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <code>Add Caption</code>
+                        <span>Right-click a message with an image → Apps → Add Caption</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/troytify</code>
+                        <span>Adds a random overlay to an image (thumbnail style)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>@WeebOwO + Reply</code>
+                        <span>Quote a message by replying to it and mentioning the bot</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-category">
+                <h3>🎵 Music & Media Commands</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <code>/vc</code>
+                        <span>Join your voice channel</span>
+                    </div>
+                    <div class="command-item">
+                        <code>!play &lt;url&gt;</code>
+                        <span>Play audio from YouTube or Spotify</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/music &lt;file&gt;</code>
+                        <span>Upload and play your own file</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/download_mp3 &lt;url&gt;</code>
+                        <span>Download YouTube audio as MP3</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/embed_video &lt;url&gt;</code>
+                        <span>Download and send Instagram or TikTok videos</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/queue</code>
+                        <span>View the music queue</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/skip</code>
+                        <span>Skip to the next song</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/pause</code>
+                        <span>Pause music</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/resume</code>
+                        <span>Resume music</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/stop</code>
+                        <span>Stop playback and clear the queue</span>
+                    </div>
+                    <div class="command-item">
+                        <code>!loop</code>
+                        <span>Loop the current song</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-category">
+                <h3>ℹ️ Utility & Info</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <code>/help</code>
+                        <span>Show all available commands</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/ping</code>
+                        <span>Check latency</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/afk [reason]</code>
+                        <span>Set yourself as AFK (auto-notifies when mentioned)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/userinfo [user]</code>
+                        <span>Get info about a user</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/serverinfo</code>
+                        <span>Server details</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/avatar [user]</code>
+                        <span>View user avatar (global & server)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/show_warning</code>
+                        <span>Check your warning count</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/show_banned_words</code>
+                        <span>List all banned words</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/suggest &lt;text&gt;</code>
+                        <span>Submit a suggestion</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/remindme &lt;minutes&gt; &lt;message&gt;</code>
+                        <span>Set a reminder (DMs you after delay)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/about</code>
+                        <span>Learn more about WeebOwO and her creators</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/website</code>
+                        <span>Get the link to Weebo's website</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/terms</code>
+                        <span>Show the Terms of Service</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/active_dev_badge</code>
+                        <span>Instructions for Active Developer Badge</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-category">
+                <h3>👮 Moderation & Admin</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <code>/warn &lt;user&gt; &lt;reason&gt;</code>
+                        <span>Warn a user (Admin/Mod only)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/remove_warnings &lt;user&gt;</code>
+                        <span>Clear all warnings from a user (Admin/Mod only)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/ban &lt;user&gt; [reason]</code>
+                        <span>Ban a user from the server (Admin/Mod only)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/kick &lt;user&gt; [reason]</code>
+                        <span>Kick a user from the server (Admin/Mod only)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/purge &lt;amount&gt;</code>
+                        <span>Bulk delete messages (Admin only)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/slowmode &lt;seconds&gt;</code>
+                        <span>Set slowmode for channel (Admin only)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/lock [reason]</code>
+                        <span>Lock the current channel (Admin only)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/unlock [reason]</code>
+                        <span>Unlock the current channel (Admin only)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/say_in &lt;channel_id&gt; &lt;message&gt;</code>
+                        <span>Send message in specific channel (Admin/Mod only)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/reply &lt;user_id&gt; &lt;message&gt;</code>
+                        <span>DM a message to someone</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-category">
+                <h3>🌟 Server Management</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <code>/starboard_config</code>
+                        <span>Configure starboard system (Admin only)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/streaming_config</code>
+                        <span>Configure streaming notifications (Admin only)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/counting_config</code>
+                        <span>Configure counting channel (Admin only)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/add-birthday &lt;MM/DD/YYYY&gt;</code>
+                        <span>Add your birthday (Weebo64's Server only)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/birthday-list</code>
+                        <span>View all birthdays in server (Weebo64's Server only)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/remove-birthday</code>
+                        <span>Remove your birthday (Weebo64's Server only)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-category">
+                <h3>🎮 Mario Kart Wii Friend Codes</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <code>/setfc &lt;region&gt; &lt;modpack&gt; &lt;friend_code&gt;</code>
+                        <span>Add your friend code (format: xxxx-xxxx-xxxx)</span>
+                    </div>
+                    <div class="command-item">
+                        <code>/fc [user]</code>
+                        <span>View your or another user's friend codes</span>
+                    </div>
+                </div>
+                <div
+                    style="margin-top: 20px; padding: 15px; background: rgba(147, 0, 195, 0.1); border-left: 4px solid #9300C3; border-radius: 8px;">
+                    <p style="color: #b794f6; font-size: 0.95rem; line-height: 1.6;">
+                        <strong>Regions:</strong> PAL, NTSC-U, NTSC-J, NTSC-K<br>
+                        <strong>Modpacks:</strong> Retro Rewind, Insane Kart Wii, Other<br>
+                        <strong>Format:</strong> Friend codes must be in format <code
+                            style="background: rgba(74, 195, 0, 0.2); padding: 2px 6px; border-radius: 4px; color: #4AC300;">1234-5678-9012</code>
+                    </p>
+                </div>
+            </div>
+
+            <div class="command-category">
+                <h3>✨ Other Features</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <code>AutoMod</code>
+                        <span>Automatic moderation for banned words</span>
+                    </div>
+                    <div class="command-item">
+                        <code>Logging</code>
+                        <span>Message deletion and ban logging</span>
+                    </div>
+                    <div class="command-item">
+                        <code>Welcome/Goodbye</code>
+                        <span>Custom welcome and goodbye messages</span>
+                    </div>
+                    <div class="command-item">
+                        <code>Action Roles</code>
+                        <span>Reaction role system</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>Made with 💖 by <a href="https://weebo64.is-a.dev/" target="_blank">Weebo64</a></p>
+            <p style="font-size: 1.2rem; color: #b794f6; margin-top: 20px;">
+                <a href="https://github.com/Weebo64/WeebOwO-Bot" target="_blank" style="color: #b794f6; text-decoration: none; transition: color 0.3s ease;">
+                    <svg style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub
+                </a>
+                <span style="margin: 0 10px;">•</span>
+                <span>Have fun with the bot :3</span>
+            </p>
+        </footer>
+    </div>
+
+    <script src="particles.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
