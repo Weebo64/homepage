@@ -3,6 +3,10 @@
     padding: 0;
     box-sizing: border-box;
 }
+button, a, .link-card, .page-card, .skill-card, .project-card {
+    -webkit-tap-highlight-color: rgba(159, 15, 163, 0.3);
+    touch-action: manipulation;
+}
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     background: linear-gradient(180deg, #1a4d8f 0%, #0a2540 50%, #000814 100%);
@@ -12,6 +16,8 @@ body {
     overflow-x: hidden;
     position: relative;
     transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 body.light-mode {
     background: linear-gradient(180deg, #87ceeb 0%, #5b9bd5 50%, #4a7ba7 100%);
@@ -149,7 +155,6 @@ body::before {
         transform: translateY(-30px) translateX(10px);
     }
 }
-/* Navigation */
 .main-nav {
     position: sticky;
     top: 0;
@@ -159,12 +164,10 @@ body::before {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding: 1rem 0;
 }
-
 body.light-mode .main-nav {
     background: rgba(255, 255, 255, 0.95);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
-
 .nav-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -173,7 +176,6 @@ body.light-mode .main-nav {
     justify-content: space-between;
     align-items: center;
 }
-
 .nav-logo {
     font-size: 1.5rem;
     font-weight: 800;
@@ -181,20 +183,16 @@ body.light-mode .main-nav {
     text-decoration: none;
     transition: color 0.3s ease;
 }
-
 body.light-mode .nav-logo {
     color: #1d1d1f;
 }
-
 .nav-logo:hover {
     color: #9F0FA3;
 }
-
 .nav-links {
     display: flex;
     gap: 2rem;
 }
-
 .nav-link {
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
@@ -202,23 +200,18 @@ body.light-mode .nav-logo {
     transition: color 0.3s ease;
     position: relative;
 }
-
 body.light-mode .nav-link {
     color: rgba(29, 29, 31, 0.8);
 }
-
 .nav-link:hover {
     color: #fff;
 }
-
 body.light-mode .nav-link:hover {
     color: #1d1d1f;
 }
-
 .nav-link.active {
     color: #9F0FA3;
 }
-
 .nav-link.active::after {
     content: '';
     position: absolute;
@@ -228,59 +221,46 @@ body.light-mode .nav-link:hover {
     height: 2px;
     background: #9F0FA3;
 }
-
 @media (max-width: 768px) {
     .nav-container {
         padding: 0 1rem;
     }
-    
     .nav-links {
         gap: 1rem;
     }
-    
     .nav-link {
         font-size: 0.9rem;
     }
 }
-
-/* Page Header */
 .page-header {
     text-align: center;
     padding: 4rem 2rem 2rem;
 }
-
 .page-header h1 {
     font-size: 3rem;
     font-weight: 800;
     margin-bottom: 1rem;
 }
-
 .page-subtitle {
     font-size: 1.2rem;
     opacity: 0.8;
 }
-
 @media (max-width: 768px) {
     .page-header h1 {
         font-size: 2rem;
     }
-    
     .page-subtitle {
         font-size: 1rem;
     }
 }
-
-/* Quick Links */
 .quick-links {
     padding: 3rem 2rem;
 }
-
 .quick-links h2 {
     text-align: center;
     font-size: 2rem;
     margin-bottom: 2rem;
 }
-
 .quick-links-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -288,7 +268,6 @@ body.light-mode .nav-link:hover {
     max-width: 1200px;
     margin: 0 auto;
 }
-
 .quick-link-card {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -299,36 +278,29 @@ body.light-mode .nav-link:hover {
     color: inherit;
     transition: all 0.3s ease;
 }
-
 body.light-mode .quick-link-card {
     background: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
-
 .quick-link-card:hover {
     transform: translateY(-5px);
     background: rgba(255, 255, 255, 0.1);
     border-color: #9F0FA3;
 }
-
 body.light-mode .quick-link-card:hover {
     background: rgba(255, 255, 255, 1);
 }
-
 .quick-link-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
 }
-
 .quick-link-card h3 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
 }
-
 .quick-link-card p {
     opacity: 0.8;
 }
-
 .container {
     max-width: 1400px;
     margin: 0 auto;
@@ -348,7 +320,6 @@ header {
     margin: 0;
     animation: fadeInDown 0.8s ease;
 }
-
 .avatar-container {
     position: relative;
     display: inline-block;
@@ -363,7 +334,6 @@ header {
         0 0 0 12px #8B4513;
     animation: paintingFloat 4s ease-in-out infinite;
 }
-
 .avatar-container::before {
     content: '';
     position: absolute;
@@ -377,7 +347,6 @@ header {
     pointer-events: none;
     z-index: 2;
 }
-
 .avatar-container::after {
     content: '';
     position: absolute;
@@ -393,7 +362,6 @@ header {
     filter: drop-shadow(0 0 15px rgba(255, 223, 0, 0.9));
     z-index: 3;
 }
-
 .avatar-image {
     width: 280px;
     height: 280px;
@@ -408,12 +376,10 @@ header {
     animation: paintingRipple 3s ease-in-out infinite;
     transition: all 0.3s ease;
 }
-
 .avatar-image:hover {
     animation: paintingRipple 0.6s ease-in-out infinite, paintingWarp 0.4s ease-in-out;
     filter: brightness(1.1);
 }
-
 @keyframes paintingFloat {
     0%, 100% { 
         transform: translateY(0px);
@@ -422,7 +388,6 @@ header {
         transform: translateY(-15px);
     }
 }
-
 @keyframes paintingRipple {
     0%, 100% {
         filter: brightness(1) contrast(1);
@@ -440,7 +405,6 @@ header {
         transform: scale(1.005);
     }
 }
-
 @keyframes paintingWarp {
     0%, 100% {
         transform: scale(1) perspective(500px) rotateY(0deg);
@@ -455,12 +419,10 @@ header {
         transform: scale(1.05) perspective(500px) rotateY(5deg);
     }
 }
-
 @keyframes starSpin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-
 @keyframes starPulse {
     0%, 100% { 
         transform: scale(1);
@@ -532,12 +494,10 @@ header h1 {
     margin: 0 20px 40px;
     animation: fadeInUp 1s ease 0.2s both;
 }
-
 .avatar-container {
     position: relative;
     display: inline-block;
 }
-
 .avatar-image {
     width: 250px;
     height: 250px;
@@ -551,7 +511,6 @@ header h1 {
     animation: float 6s ease-in-out infinite, glow 3s ease-in-out infinite;
     transition: all 0.4s ease;
 }
-
 .avatar-image:hover {
     transform: scale(1.05) rotate(5deg);
     box-shadow: 
@@ -559,7 +518,6 @@ header h1 {
         0 0 100px rgba(255, 100, 100, 0.6),
         0 30px 80px rgba(0, 0, 0, 0.5);
 }
-
 .about {
     padding: 60px 40px;
     background: rgba(17, 24, 39, 0.6);
@@ -669,7 +627,6 @@ header h1 {
     margin-bottom: 20px;
     display: inline-block;
 }
-/* Removed bounce animation for better performance */
 .skill-card h3 {
     font-size: 1.6rem;
     margin-bottom: 15px;
@@ -830,7 +787,6 @@ header h1 {
     position: relative;
     z-index: 1;
 }
-
 .link-icon-svg {
     width: 2.5rem;
     height: 2.5rem;
@@ -839,7 +795,6 @@ header h1 {
     color: #9F0FA3;
     transition: all 0.3s ease;
 }
-
 .link-card:hover .link-icon-svg {
     color: #7c3aed;
     transform: scale(1.1);
@@ -1044,11 +999,9 @@ body.light-mode .loader-circle {
 body.light-mode .link-card {
     color: #1d1d1f;
 }
-
 body.light-mode .link-icon-svg {
     color: #7c3aed;
 }
-
 body.light-mode .link-card:hover .link-icon-svg {
     color: #9F0FA3;
 }
@@ -1115,13 +1068,11 @@ body.light-mode .link-card:hover .link-icon-svg {
     box-shadow: 0 4px 20px rgba(88, 101, 242, 0.5);
     transition: all 0.3s ease;
 }
-
 .discord-toggle .discord-icon {
     width: 30px;
     height: 30px;
     color: #fff;
 }
-
 .discord-toggle:hover {
     transform: scale(1.1);
     box-shadow: 0 6px 30px rgba(88, 101, 242, 0.7);
@@ -1299,24 +1250,19 @@ body.light-mode .activity-name {
     padding: 80px 40px;
     animation: fadeInUp 1.2s ease 1s both;
 }
-
 .page-card {
     opacity: 0;
     animation: fadeInScale 0.6s ease forwards;
 }
-
 .page-card:nth-child(1) {
     animation-delay: 1.2s;
 }
-
 .page-card:nth-child(2) {
     animation-delay: 1.4s;
 }
-
 .page-card:nth-child(3) {
     animation-delay: 1.6s;
 }
-
 @keyframes fadeInScale {
     from {
         opacity: 0;
@@ -1361,15 +1307,12 @@ body.light-mode .activity-name {
     opacity: 0;
     animation: fadeInScale 0.6s ease forwards;
 }
-
 .page-card:nth-child(1) {
     animation-delay: 1.2s;
 }
-
 .page-card:nth-child(2) {
     animation-delay: 1.4s;
 }
-
 .page-card:nth-child(3) {
     animation-delay: 1.6s;
 }
@@ -1404,14 +1347,12 @@ body.light-mode .activity-name {
     align-items: center;
     justify-content: center;
 }
-
 .page-icon-svg {
     width: 3rem;
     height: 3rem;
     color: #9F0FA3;
     transition: all 0.3s ease;
 }
-
 .page-card:hover .page-icon-svg {
     color: #7c3aed;
     transform: scale(1.1);
@@ -1471,80 +1412,234 @@ body.light-mode .page-info p {
 body.light-mode .page-arrow {
     color: #7c3aed;
 }
-
 body.light-mode .page-icon-svg {
     color: #7c3aed;
 }
-
 body.light-mode .page-card:hover .page-icon-svg {
     color: #9F0FA3;
 }
 @media (max-width: 768px) {
+    .floating-renders {
+        display: none; 
+    }
+    body::before {
+        opacity: 0.5; 
+    }
+    .render-logo {
+        width: 100px !important;
+        opacity: 0.1 !important;
+    }
     header {
-        padding: 40px 20px 60px;
+        padding: 30px 15px 40px;
     }
     header h1 {
-        font-size: 3rem;
+        font-size: 2.5rem;
         letter-spacing: -1px;
     }
     .subtitle {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
     }
     .tagline {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        padding: 0 10px;
     }
     .avatar-section {
-        padding: 20px 20px 15px;
+        padding: 20px 10px 15px;
         margin: 0;
     }
     .avatar-container {
-        padding: 18px;
+        padding: 15px;
     }
     .avatar-container::after {
-        width: 45px;
-        height: 45px;
-        top: -15px;
-        right: -15px;
+        width: 40px;
+        height: 40px;
+        top: -12px;
+        right: -12px;
     }
     .avatar-image {
-        width: 200px;
-        height: 200px;
+        width: 180px;
+        height: 180px;
     }
-    .about, .skills, .projects, .links {
-        padding: 40px 20px;
-        margin: 0 10px 30px;
+    .about, .skills, .projects, .links, .pages {
+        padding: 30px 15px;
+        margin: 0 10px 20px;
+        border-radius: 20px;
     }
-    .about h2, .skills h2, .projects h2, .links h2 {
-        font-size: 2.2rem;
+    .about h2, .skills h2, .projects h2, .links h2, .pages h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
     }
-    .skills-grid, .project-grid, .links-grid, .pages-grid {
+    .about p {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+    .skills-grid, .project-grid, .links-grid, .pages-grid, .quick-links-grid {
         grid-template-columns: 1fr;
+        gap: 15px;
         margin: 0;
     }
-    .pages {
-        padding: 40px 20px;
-        margin: 0 10px 30px;
+    .skill-card, .project-card, .link-card, .page-card, .quick-link-card {
+        padding: 20px;
+        border-radius: 15px;
+    }
+    .skill-icon, .quick-link-icon {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+    }
+    .skill-card h3, .project-card h3 {
+        font-size: 1.3rem;
+    }
+    .skill-card p, .project-card p {
+        font-size: 0.95rem;
+    }
+    .page-card {
+        flex-direction: row;
+        gap: 15px;
+        padding: 20px;
+    }
+    .page-icon {
+        font-size: 2rem;
+        min-width: 50px;
+    }
+    .page-icon-svg {
+        width: 2rem;
+        height: 2rem;
+    }
+    .page-info h3 {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+    }
+    .page-info p {
+        font-size: 0.9rem;
+    }
+    .page-arrow {
+        font-size: 1.5rem;
+    }
+    .link-card {
+        padding: 20px;
+        gap: 15px;
+    }
+    .link-icon-svg {
+        width: 2rem;
+        height: 2rem;
+    }
+    .link-text {
+        font-size: 1.1rem;
+    }
+    .quick-link-card {
+        padding: 25px 20px;
+    }
+    .quick-link-icon {
+        font-size: 2.5rem;
+    }
+    .quick-link-card h3 {
+        font-size: 1.3rem;
+    }
+    .quick-link-card p {
+        font-size: 0.95rem;
+    }
+    .page-header {
+        padding: 2rem 1rem 1.5rem;
+    }
+    .page-header h1 {
+        font-size: 2rem;
+    }
+    .page-subtitle {
+        font-size: 1rem;
     }
     .theme-switcher {
-        top: 15px;
-        right: 15px;
+        top: 10px;
+        right: 10px;
     }
     #theme-toggle {
         width: 45px;
         height: 45px;
         font-size: 1.3rem;
     }
+    .theme-menu {
+        right: 0;
+        min-width: 140px;
+    }
     .discord-widget {
         width: 100%;
-        max-width: 350px;
+        max-width: 100%;
         right: -100%;
-        border-radius: 20px 0 0 20px;
+        border-radius: 0;
+        max-height: 80vh;
+    }
+    .discord-widget.active {
+        right: 0;
     }
     .discord-toggle {
-        width: 55px;
-        height: 55px;
-        font-size: 1.5rem;
+        width: 50px;
+        height: 50px;
         bottom: 15px;
         right: 15px;
+    }
+    .discord-toggle .discord-icon {
+        width: 25px;
+        height: 25px;
+    }
+    footer {
+        padding: 40px 15px;
+        margin-top: 20px;
+    }
+    footer p {
+        font-size: 1rem;
+    }
+    .footer-note {
+        font-size: 1.2rem;
+    }
+    .badge {
+        font-size: 0.8rem;
+        padding: 5px 12px;
+    }
+    .loader-circle {
+        width: 60px;
+        height: 60px;
+    }
+    .loader-text {
+        font-size: 1.5rem;
+    }
+}
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    .subtitle {
+        font-size: 1.1rem;
+    }
+    .tagline {
+        font-size: 0.9rem;
+    }
+    .avatar-image {
+        width: 150px;
+        height: 150px;
+    }
+    .about, .skills, .projects, .links, .pages {
+        padding: 20px 10px;
+        margin: 0 5px 15px;
+    }
+    .about h2, .skills h2, .projects h2, .links h2, .pages h2 {
+        font-size: 1.5rem;
+    }
+    .skill-card, .project-card, .link-card, .page-card, .quick-link-card {
+        padding: 15px;
+    }
+    .page-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .page-arrow {
+        display: none;
+    }
+    #theme-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    .discord-toggle {
+        width: 45px;
+        height: 45px;
     }
 }
