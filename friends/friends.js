@@ -226,11 +226,86 @@ setInterval(loadHarderdkPresence, 30000);
 setInterval(loadKytronixPresence, 30000);
 setInterval(loadGhostpawzPresence, 30000);
 
+// Modal functionality
+function openFriendModal(friendCard) {
+    const modal = document.createElement('div');
+    modal.className = 'friend-modal active';
+    
+    const modalContent = document.createElement('div');
+    modalContent.className = 'modal-content';
+    
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'modal-close';
+    closeBtn.innerHTML = '×';
+    closeBtn.onclick = () => modal.remove();
+    
+    // Clone the friend card content
+    const avatar = friendCard.querySelector('.friend-avatar').cloneNode(true);
+    avatar.className = 'modal-avatar';
+    
+    const info = friendCard.cloneNode(true);
+    const modalInfo = document.createElement('div');
+    modalInfo.className = 'modal-info';
+    
+    // Get all the info elements
+    const name = info.querySelector('.friend-name').cloneNode(true);
+    const username = info.querySelector('.friend-username').cloneNode(true);
+    const aka = info.querySelector('.friend-aka')?.cloneNode(true);
+    const role = info.querySelector('.friend-role')?.cloneNode(true);
+    const pronouns = info.querySelector('.friend-pronouns')?.cloneNode(true);
+    const activity = info.querySelector('.friend-activity')?.cloneNode(true);
+    const links = info.querySelector('.friend-links')?.cloneNode(true);
+    
+    modalInfo.appendChild(name);
+    modalInfo.appendChild(username);
+    if (aka) modalInfo.appendChild(aka);
+    if (role) modalInfo.appendChild(role);
+    if (pronouns) modalInfo.appendChild(pronouns);
+    if (activity) modalInfo.appendChild(activity);
+    if (links) modalInfo.appendChild(links);
+    
+    modalContent.appendChild(closeBtn);
+    modalContent.appendChild(avatar);
+    modalContent.appendChild(modalInfo);
+    modal.appendChild(modalContent);
+    
+    document.body.appendChild(modal);
+    
+    // Close on background click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    });
+    
+    // Close on ESC key
+    const escHandler = (e) => {
+        if (e.key === 'Escape') {
+            modal.remove();
+            document.removeEventListener('keydown', escHandler);
+        }
+    };
+    document.addEventListener('keydown', escHandler);
+}
+
 document.querySelectorAll('.friend-card').forEach((card, index) => {
     const avatar = card.querySelector('.avatar-placeholder');
     if (avatar) {
         avatar.style.animationDelay = `${index * 0.3}s`;
     }
+
+    // Add click handler for modal
+    card.addEventListener('click', function(e) {
+        // Don't open modal if clicking on a link
+        if (e.target.closest('.friend-link')) {
+            return;
+        }
+        // Don't open modal if it's ilynora (has special page)
+        if (this.hasAttribute('onclick')) {
+            return;
+        }
+        openFriendModal(this);
+    });
 
     // Reduced sparkle count on hover for better performance
     card.addEventListener('mouseenter', function () {
@@ -275,60 +350,3 @@ function highlightRandomFriend() {
 }
 
 setInterval(highlightRandomFriend, 10000);
-
-let clickSequence = [];
-const correctSequence = ['zelda', 'kytronix', 'horse', 'fco64', 'gh0stp4wz', 'scyhigh', 'harderdk', 'rambo', 'dej', 'noel', 'hine', 'frix', 'ilynora'];
-
-document.querySelectorAll('.friend-card').forEach(card => {
-    card.addEventListener('click', function () {
-        const friend = this.dataset.friend;
-        clickSequence.push(friend);
-
-        if (clickSequence.length > 13) {
-            clickSequence.shift();
-        }
-
-        if (clickSequence.length === 13 &&
-            clickSequence.every((val, idx) => val === correctSequence[idx])) {
-            activateFriendsEasterEgg();
-            clickSequence = [];
-        }
-    });
-});
-
-function activateFriendsEasterEgg() {
-    for (let i = 0; i < 100; i++) {
-        setTimeout(() => {
-            const x = Math.random() * window.innerWidth;
-            const y = Math.random() * window.innerHeight;
-            if (typeof createSparkle === 'function') {
-                createSparkle(x, y);
-            }
-        }, i * 20);
-    }
-
-    const message = document.createElement('div');
-    message.textContent = '🎉 You found all the friends! 🎉';
-    message.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: linear-gradient(135deg, #ffdf00 0%, #ff6b6b 100%);
-        color: #000;
-        padding: 30px 60px;
-        border-radius: 20px;
-        font-size: 2rem;
-        font-weight: 700;
-        z-index: 10001;
-        box-shadow: 0 20px 60px rgba(255, 223, 0, 0.8);
-        border: 4px solid #fff;
-        animation: bounceIn 0.6s ease;
-    `;
-    document.body.appendChild(message);
-
-    setTimeout(() => {
-        message.style.animation = 'fadeOut 0.5s ease';
-        setTimeout(() => message.remove(), 500);
-    }, 3000);
-}

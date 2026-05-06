@@ -50,23 +50,26 @@
 
 .friends-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
     margin: 0 20px;
 }
 
 .friend-card {
     background: rgba(17, 24, 39, 0.6);
     backdrop-filter: blur(10px);
-    padding: 35px;
-    border-radius: 25px;
+    padding: 15px;
+    border-radius: 15px;
     border: 2px solid rgba(255, 223, 0, 0.3);
-    text-align: center;
-    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
     opacity: 0;
     animation: fadeInScale 0.6s ease forwards;
+    cursor: pointer;
 }
 
 .friend-card:nth-child(1) { animation-delay: 0.1s; }
@@ -93,18 +96,18 @@
 }
 
 .friend-card:hover {
-    transform: translateY(-10px) scale(1.02);
+    transform: translateY(-3px) scale(1.02);
     box-shadow: 
-        0 20px 40px rgba(255, 223, 0, 0.4),
+        0 10px 25px rgba(255, 223, 0, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 107, 107, 0.6);
     background: rgba(17, 24, 39, 0.8);
 }
 
 .friend-avatar {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 20px;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
     position: relative;
 }
 
@@ -119,18 +122,18 @@
 }
 
 .friend-card:hover .avatar-image {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 0 40px rgba(255, 223, 0, 0.6);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 223, 0, 0.6);
 }
 
 .discord-status-badge {
     position: absolute;
-    bottom: 5px;
-    right: 5px;
-    width: 24px;
-    height: 24px;
+    bottom: 0px;
+    right: 0px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    border: 3px solid rgba(17, 24, 39, 0.9);
+    border: 2px solid rgba(17, 24, 39, 0.9);
     z-index: 10;
 }
 
@@ -162,39 +165,197 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #ffdf00;
-    text-shadow: 0 0 20px rgba(255, 223, 0, 0.8);
-    box-shadow: 0 0 30px rgba(255, 223, 0, 0.4);
-    transition: all 0.4s ease;
+    text-shadow: 0 0 10px rgba(255, 223, 0, 0.8);
+    box-shadow: 0 0 15px rgba(255, 223, 0, 0.4);
+    transition: all 0.3s ease;
 }
 
 .friend-card:hover .avatar-placeholder {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 0 40px rgba(255, 223, 0, 0.6);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 223, 0, 0.6);
 }
 
 .friend-info {
-    margin-bottom: 20px;
+    flex: 1;
+    text-align: left;
+    min-width: 0;
 }
 
 .friend-name {
-    font-size: 1.8rem;
+    font-size: 1rem;
     font-weight: 700;
     background: linear-gradient(135deg, #ffdf00 0%, #ff6b6b 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 8px;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    margin-bottom: 2px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .friend-username {
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     color: #9ca3af;
-    margin-bottom: 5px;
     font-family: 'Courier New', monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Hide detailed info in compact cards */
+.friend-card .friend-aka,
+.friend-card .friend-role,
+.friend-card .friend-pronouns,
+.friend-card .friend-activity,
+.friend-card .friend-links {
+    display: none;
+}
+
+/* Modal styles */
+.friend-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 10001;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.friend-modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 40px;
+    border-radius: 25px;
+    border: 2px solid rgba(255, 223, 0, 0.5);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.3s ease;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: rgba(255, 107, 107, 0.3);
+    color: #ff6b6b;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    background: rgba(255, 107, 107, 0.5);
+    transform: rotate(90deg);
+}
+
+.modal-avatar {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 25px;
+    position: relative;
+}
+
+.modal-avatar .avatar-image,
+.modal-avatar .avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.modal-avatar .avatar-placeholder {
+    font-size: 4rem;
+}
+
+.modal-info {
+    text-align: center;
+}
+
+.modal-info .friend-name {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    white-space: normal;
+}
+
+.modal-info .friend-username {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.modal-info .friend-aka {
+    display: block;
+    font-size: 1rem;
+    color: #9ca3af;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.modal-info .friend-role {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-bottom: 15px;
+}
+
+.modal-info .friend-pronouns {
+    display: inline-block;
+    padding: 8px 16px;
+}
+
+.modal-info .friend-activity {
+    display: block;
+    margin-top: 20px;
+}
+
+.modal-info .friend-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .friend-aka {
