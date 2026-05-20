@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeebOwO - Discord Bot</title>
+    <link rel="icon" type="image/png" href="bot_pfp.png">
+
+    <!-- Discord Embed Meta Tags -->
+    <meta property="og:title" content="WeebOwO - Discord Bot">
+    <meta property="og:description" content="invite her to your server!">
+    <meta property="og:image" content="bot_pfp.png">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#9300C3">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="WeebOwO - Discord Bot">
+    <meta name="twitter:description" content="invite her to your server!">
+    <meta name="twitter:image" content="bot_pfp.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader">
+            <div class="loader-circle"></div>
+            <div class="loader-text">WeebOwO</div>
+        </div>
+    </div>
+
+    <canvas id="particles"></canvas>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button id="theme-toggle" aria-label="Toggle theme">
+            <span class="theme-icon">🌙</span>
+        </button>
+        <div class="theme-menu" id="theme-menu">
+            <button class="theme-option" data-theme="dark">🌙 Dark</button>
+            <button class="theme-option" data-theme="light">☀️ Light</button>
+            <button class="theme-option" data-theme="auto">💻 System</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <div class="logo-section">
+                <img src="bot_pfp.png" alt="WeebOwO" class="bot-avatar">
+                <h1>WeebOwO</h1>
+            </div>
+            <p class="tagline">A versatile Discord bot with 97 commands for fun, music, moderation & more :3</p>
+        </header>
+
+        <!-- About Section -->
+        <section class="about">
+            <h2>About</h2>
+            <p>WeebOwO is a versatile Discord bot created by Weebo64! She's a cute cat-themed bot with <strong>98 commands</strong> 
+                that bring life and fun to your server :3c
+            </p>
+            <p>
+                WeebOwO offers a wide variety of features: From <strong>fun commands</strong> like <code>/weebowo</code> for cute images, 
+                <code>/pat</code>, <code>/hug</code>, and <code>/ship</code> for social interactions, to <strong>music features</strong> 
+                with YouTube & Spotify support. She also has <strong>moderation tools</strong> (AutoMod, warnings, logging), 
+                <strong>server management</strong> (starboard, suggestions, birthdays, streaming notifications), 
+                <strong>utility commands</strong> (AFK system, reminders, user info), and even special features like 
+                <strong>Mario Kart Wii friend codes</strong>, <strong>image manipulation</strong> (caption, troytify), and 
+                <strong>trivia & Akinator</strong> games!
+            </p>
+            <p>
+                With her friendly UwU style and many easter eggs, WeebOwO makes every server a cozier place 💕
+            </p>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats">
+            <div class="stat-card">
+                <h3>Servers</h3>
+                <p class="stat-number">Trusted by <span id="server-count">43</span> servers :3</p>
+            </div>
+            <div class="stat-card">
+                <h3>Commands</h3>
+                <p class="stat-number"><span id="command-count">98</span> commands available!</p>
+            </div>
+            <div class="stat-card">
+                <h3>Features</h3>
+                <p class="stat-number">Fun • Music • Moderation • Games • Utility & more!</p>
+            </div>
+        </section>
+
+        <!-- Action Buttons -->
+        <div class="invite-section">
+            <a href="https://discord.com/oauth2/authorize?client_id=1338683908123922564&permissions=8&integration_type=0&scope=applications.commands+bot"
+                class="invite-btn" target="_blank">
+                Invite WeebOwO
+            </a>
+            <a href="commands/" class="invite-btn" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin-left: 15px;">
+                View All Commands
+            </a>
+        </div>
+
+        <!-- Features Overview -->
+        <section class="about">
+            <h2>Key Features</h2>
+            <div class="command-grid" style="margin-top: 30px;">
+                <div class="command-item" style="text-align: center; padding: 30px;">
+                    <h3 style="font-size: 2rem; margin-bottom: 10px;">🎮</h3>
+                    <strong style="display: block; margin-bottom: 10px; font-size: 1.1rem;">Fun & Social</strong>
+                    <span>Interactive commands like /pat, /hug, /ship, games, and cute images</span>
+                </div>
+                <div class="command-item" style="text-align: center; padding: 30px;">
+                    <h3 style="font-size: 2rem; margin-bottom: 10px;">🎵</h3>
+                    <strong style="display: block; margin-bottom: 10px; font-size: 1.1rem;">Music Player</strong>
+                    <span>YouTube & Spotify support with queue management and downloads</span>
+                </div>
+                <div class="command-item" style="text-align: center; padding: 30px;">
+                    <h3 style="font-size: 2rem; margin-bottom: 10px;">👮</h3>
+                    <strong style="display: block; margin-bottom: 10px; font-size: 1.1rem;">Moderation</strong>
+                    <span>AutoMod, warnings, bans, kicks, and logging systems</span>
+                </div>
+                <div class="command-item" style="text-align: center; padding: 30px;">
+                    <h3 style="font-size: 2rem; margin-bottom: 10px;">🌟</h3>
+                    <strong style="display: block; margin-bottom: 10px; font-size: 1.1rem;">Server Tools</strong>
+                    <span>Starboard, streaming notifications, birthdays, and counting</span>
+                </div>
+                <div class="command-item" style="text-align: center; padding: 30px;">
+                    <h3 style="font-size: 2rem; margin-bottom: 10px;">🖼️</h3>
+                    <strong style="display: block; margin-bottom: 10px; font-size: 1.1rem;">Image Fun</strong>
+                    <span>Caption maker, troytify overlays, and quote generator</span>
+                </div>
+                <div class="command-item" style="text-align: center; padding: 30px;">
+                    <h3 style="font-size: 2rem; margin-bottom: 10px;">🎯</h3>
+                    <strong style="display: block; margin-bottom: 10px; font-size: 1.1rem;">Games</strong>
+                    <span>Trivia, Akinator, and various mini-games</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>Made with 💖 by <a href="https://weebo64.is-a.dev/" target="_blank">Weebo64</a></p>
+            <p style="font-size: 1.2rem; color: #b794f6; margin-top: 20px;">
+                <a href="https://github.com/Weebo64/WeebOwO-Bot" target="_blank" style="color: #b794f6; text-decoration: none; transition: color 0.3s ease;">
+                    <svg style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub
+                </a>
+                <span style="margin: 0 10px;">•</span>
+                <a href="legal/" style="color: #b794f6; text-decoration: none; transition: color 0.3s ease;">Privacy & Terms</a>
+                <span style="margin: 0 10px;">•</span>
+                <span>Have fun with the bot :3</span>
+            </p>
+        </footer>
+    </div>
+
+    <script src="particles.js"></script>
+    <script src="script.js"></script>
+</body>
+
+
+</html>
+
+
+
+
+
+
+
+
