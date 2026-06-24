@@ -671,6 +671,66 @@ body.celebrating .stat-card {
     animation: fadeInUp 0.8s ease 0.4s both;
 }
 
+.tabs-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+    background: rgba(17, 24, 39, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    border: 2px solid rgba(52, 152, 219, 0.3);
+}
+
+.tab-button {
+    padding: 12px 24px;
+    background: rgba(52, 152, 219, 0.1);
+    border: 2px solid rgba(52, 152, 219, 0.3);
+    border-radius: 15px;
+    color: #3498db;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.tab-button:hover:not(:disabled) {
+    background: rgba(52, 152, 219, 0.2);
+    border-color: rgba(52, 152, 219, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.tab-button.active {
+    background: rgba(231, 76, 60, 0.3);
+    border-color: rgba(231, 76, 60, 0.5);
+    color: #e74c3c;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+}
+
+.tab-button.active:hover {
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.5);
+}
+
+.tab-button.loading-tab {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.tab-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .filter-toggle {
     display: flex;
     align-items: center;

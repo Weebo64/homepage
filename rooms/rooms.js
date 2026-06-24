@@ -1,5 +1,31 @@
-const API_ENDPOINT = 'https://umapyoi.net/api/v1/rr-rooms';
-const FALLBACK_ENDPOINT = 'https://rwfc.net/api/groups';
+const MODPACK_APIS = {
+    'Retro Rewind': {
+        primary: 'https://umapyoi.net/api/v1/rr-rooms',
+        fallback: 'https://rwfc.net/api/groups',
+        displayName: 'Retro Rewind',
+        wikiLink: 'https://wiki.tockdom.com/wiki/Retro_Rewind'
+    },
+    'Insane Kart Wii': {
+        primary: null,
+        fallback: 'https://ikwfc.xyz/api/groups',
+        displayName: 'Insane Kart Wii',
+        wikiLink: null
+    },
+    'Silly Kart Wii': {
+        primary: null,
+        fallback: 'https://ikwfc.xyz/api/groups',
+        displayName: 'Silly Kart Wii',
+        wikiLink: null
+    },
+    'VanzaKart Wii': {
+        primary: null,
+        fallback: 'http://sitodaking.it/api/groups',
+        displayName: 'VanzaKart Wii',
+        wikiLink: null
+    }
+};
+
+const IKW_GROUPS_API = 'https://ikwfc.xyz/api/groups';
 const CORS_PROXIES = [
     'https://api.allorigins.win/raw?url=',
     'https://corsproxy.io/?',
@@ -7,6 +33,10 @@ const CORS_PROXIES = [
     'https://thingproxy.freeboard.io/fetch/'
 ];
 let currentProxyIndex = 0;
+
+let selectedModpack = null;
+let availableModpacks = [];
+let refreshInterval = null;
 
 const GAMEMODE_MAP = {
     "10": "Retro Tracks",
@@ -99,71 +129,155 @@ window.addEventListener('resize', () => {
 initStars();
 animateStars();
 
-async function fetchRooms() {
+async function fetchAvailableModpacks() {
+    try {
+        console.log('Fetching available modpacks from IKW API...');
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+        const response = await fetch(IKW_GROUPS_API, {
+            signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if (response.ok) {
+            const groups = await response.json();
+            console.log('IKW API groups:', groups);
+            
+            if (Array.isArray(groups) && groups.length > 0) {
+                const modpacks = groups.map(g => g.name || g);
+                
+                availableModpacks = ['Retro Rewind', ...modpacks];
+                console.log('Available modpacks:', availableModpacks);
+                renderModpackTabs();
+                return;
+            }
+        }
+    } catch (err) {
+        console.log('IKW API failed:', err.message);
+    }
+    
+    availableModpacks = ['Retro Rewind', 'Insane Kart Wii', 'Silly Kart Wii', 'VanzaKart Wii'];
+    renderModpackTabs();
+}
+
+function renderModpackTabs() {
+    const tabsList = document.getElementById('tabsList');
+    tabsList.innerHTML = '';
+    
+    availableModpacks.forEach((modpack, index) => {
+        const tabElement = document.createElement('button');
+        tabElement.className = 'tab-button';
+        tabElement.textContent = modpack;
+        tabElement.dataset.modpack = modpack;
+        
+        if (index === 0 && !selectedModpack) {
+            tabElement.classList.add('active');
+            selectedModpack = modpack;
+        } else if (selectedModpack === modpack) {
+            tabElement.classList.add('active');
+        }
+        
+        tabElement.addEventListener('click', () => {
+            selectedModpack = modpack;
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            tabElement.classList.add('active');
+            
+            fetchRoomsForModpack();
+        });
+        
+        tabsList.appendChild(tabElement);
+    });
+    
+    if (selectedModpack) {
+        fetchRoomsForModpack();
+    }
+}
+
+async function fetchRoomsForModpack() {
     const loading = document.getElementById('loading');
     const error = document.getElementById('error');
     const roomsGrid = document.getElementById('roomsGrid');
 
+    loading.style.display = 'block';
+    error.style.display = 'none';
+
+    if (!selectedModpack) {
+        console.log('No modpack selected');
+        return;
+    }
+
+    const modpackApi = MODPACK_APIS[selectedModpack];
+    if (!modpackApi) {
+        console.error('Unknown modpack:', selectedModpack);
+        return;
+    }
+
     try {
         let lastError;
 
-        try {
-            console.log('Trying umapyoi.net API...');
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 8000);
+        if (modpackApi.primary) {
+            try {
+                console.log(`Trying ${selectedModpack} primary API...`);
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 8000);
 
-            const response = await fetch(API_ENDPOINT, {
-                signal: controller.signal
-            });
+                const response = await fetch(modpackApi.primary, {
+                    signal: controller.signal
+                });
 
-            clearTimeout(timeoutId);
+                clearTimeout(timeoutId);
 
-            if (response.ok) {
-                const groups = await response.json();
-                console.log('Success with umapyoi.net API');
-                loading.style.display = 'none';
+                if (response.ok) {
+                    const groups = await response.json();
+                    console.log(`Success with ${selectedModpack} primary API`);
+                    loading.style.display = 'none';
 
-                if (!groups || groups.length === 0) {
-                    roomsGrid.innerHTML = '<div class="no-rooms">🏁 No active rooms at the moment</div>';
-                    updateStats(0, 0);
+                    if (!groups || groups.length === 0) {
+                        roomsGrid.innerHTML = '<div class="no-rooms">🏁 No active rooms at the moment</div>';
+                        updateStats(0, 0);
+                        return;
+                    }
+
+                    displayRooms(groups);
                     return;
                 }
-
-                displayRooms(groups);
-                return;
+            } catch (apiErr) {
+                console.log(`${selectedModpack} primary API failed, trying fallback...`, apiErr.message);
             }
-        } catch (apiErr) {
-            console.log('umapyoi.net API failed, trying direct fetch...', apiErr.message);
         }
 
-        try {
-            console.log('Trying direct RWFC fetch...');
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 8000);
+        if (modpackApi.fallback) {
+            try {
+                console.log(`Trying ${selectedModpack} fallback API...`);
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 8000);
 
-            const response = await fetch(FALLBACK_ENDPOINT, {
-                signal: controller.signal,
-                mode: 'cors'
-            });
+                const response = await fetch(modpackApi.fallback, {
+                    signal: controller.signal,
+                    mode: 'cors'
+                });
 
-            clearTimeout(timeoutId);
+                clearTimeout(timeoutId);
 
-            if (response.ok) {
-                const groups = await response.json();
-                console.log('Success with direct RWFC fetch');
-                loading.style.display = 'none';
+                if (response.ok) {
+                    const groups = await response.json();
+                    console.log(`Success with ${selectedModpack} fallback API`);
+                    loading.style.display = 'none';
 
-                if (!groups || groups.length === 0) {
-                    roomsGrid.innerHTML = '<div class="no-rooms">🏁 No active rooms at the moment</div>';
-                    updateStats(0, 0);
+                    if (!groups || groups.length === 0) {
+                        roomsGrid.innerHTML = '<div class="no-rooms">🏁 No active rooms at the moment</div>';
+                        updateStats(0, 0);
+                        return;
+                    }
+
+                    displayRooms(groups);
                     return;
                 }
-
-                displayRooms(groups);
-                return;
+            } catch (directErr) {
+                console.log(`${selectedModpack} fallback API failed, trying proxies...`, directErr.message);
             }
-        } catch (directErr) {
-            console.log('Direct RWFC fetch failed, trying proxies...', directErr.message);
         }
 
         for (let i = 0; i < CORS_PROXIES.length; i++) {
@@ -174,7 +288,8 @@ async function fetchRooms() {
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 8000);
 
-                const response = await fetch(proxy + encodeURIComponent(FALLBACK_ENDPOINT), {
+                const fallbackEndpoint = modpackApi.fallback || modpackApi.primary;
+                const response = await fetch(proxy + encodeURIComponent(fallbackEndpoint), {
                     signal: controller.signal
                 });
 
@@ -219,6 +334,24 @@ async function fetchRooms() {
 
 let allGroups = [];
 
+function getGroupName(group) {
+    if (group.rk) {
+        const roomKey = group.rk;
+        
+        if (roomKey.includes('ikw_')) {
+            return 'Insane Kart Wii';
+        } else if (roomKey.includes('skw_')) {
+            return 'Silly Kart Wii';
+        } else if (roomKey.includes('vkw_') || roomKey.includes('vanza_')) {
+            return 'VanzaKart Wii';
+        } else if (roomKey.includes('vs_')) {
+            return 'Retro Rewind';
+        }
+    }
+    
+    return 'Unknown';
+}
+
 async function displayRooms(groups) {
     allGroups = groups;
     const roomsGrid = document.getElementById('roomsGrid');
@@ -236,14 +369,23 @@ async function displayRooms(groups) {
             const averageVR = playersWithVR.length > 0 ? totalVR / playersWithVR.length : 0;
             group.averageVR = Math.round(averageVR);
         }
+        
+        group.groupName = getGroupName(group);
     });
 
     const publicOnlyFilter = document.getElementById('publicOnlyFilter');
     const showPublicOnly = publicOnlyFilter && publicOnlyFilter.checked;
 
-    const filteredGroups = showPublicOnly
+    let filteredGroups = showPublicOnly
         ? groups.filter(group => group.type !== 'private')
         : groups;
+
+    // Filter by selected modpack
+    if (selectedModpack && selectedModpack !== 'Retro Rewind') {
+        filteredGroups = filteredGroups.filter(group => group.groupName === selectedModpack);
+    } else if (selectedModpack === 'Retro Rewind') {
+        filteredGroups = filteredGroups.filter(group => group.groupName === 'Retro Rewind');
+    }
 
     if (filteredGroups.length === 0) {
         roomsGrid.innerHTML = '<div class="no-rooms">🏁 No rooms match the current filter</div>';
@@ -660,11 +802,17 @@ document.addEventListener('click', (e) => {
     }
 });
 
+async function initializePage() {
+    await fetchAvailableModpacks();
+}
+
 setInterval(() => {
-    fetchRooms();
+    if (selectedModpack) {
+        fetchRoomsForModpack();
+    }
 }, 60000);
 
-fetchRooms();
+initializePage();
 
 const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1434643639476420889/HLW7ffk1B0-4UeGzl-8UsaLvqLjpaC7qtHz1dI8-HWWwW5b5HCgsA96_vJkExkm5Yu5A';
 
