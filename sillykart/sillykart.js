@@ -656,7 +656,7 @@ async function loadChangelogs() {
 
 function createChangelogCard(changelog, index) {
     const card = document.createElement('div');
-    card.className = 'changelog-card';
+    card.className = 'changelog-card collapsed';
     card.style.opacity = '0';
     card.style.transform = 'translateY(30px)';
     
@@ -669,14 +669,19 @@ function createChangelogCard(changelog, index) {
                       changelog.type === 'beta' ? '🧪 BETA' :
                       changelog.type === 'hotfix' ? '🔧 HOTFIX' : '📦 UPDATE';
     
-    // Create header
+    // Create clickable header
     const header = `
-        <div class="changelog-header">
-            <div class="changelog-header-left">
-                <h3 class="changelog-version">${changelog.version}</h3>
-                <span class="changelog-badge ${badgeClass}">${badgeText}</span>
+        <div class="changelog-header-clickable">
+            <div class="changelog-header">
+                <div class="changelog-header-left">
+                    <h3 class="changelog-version">${changelog.version}</h3>
+                    <span class="changelog-badge ${badgeClass}">${badgeText}</span>
+                </div>
+                <div class="changelog-header-right">
+                    <div class="changelog-date">${formatDate(changelog.date)}</div>
+                    <div class="changelog-expand-icon">▼</div>
+                </div>
             </div>
-            <div class="changelog-date">${formatDate(changelog.date)}</div>
         </div>
     `;
     
@@ -686,7 +691,13 @@ function createChangelogCard(changelog, index) {
     ` : '';
     
     // Create changes sections
-    let changesHTML = '<div class="changelog-changes">';
+    let changesHTML = '<div class="changelog-content">';
+    
+    if (title) {
+        changesHTML += title;
+    }
+    
+    changesHTML += '<div class="changelog-changes">';
     
     changelog.changes.forEach(category => {
         if (category.items && category.items.length > 0) {
@@ -711,11 +722,48 @@ function createChangelogCard(changelog, index) {
         }
     });
     
-    changesHTML += '</div>';
+    changesHTML += '</div></div>';
     
-    card.innerHTML = header + title + changesHTML;
+    card.innerHTML = header + changesHTML;
+    
+    // Add click event to toggle expansion
+    const headerClickable = card.querySelector('.changelog-header-clickable');
+    headerClickable.addEventListener('click', () => {
+        toggleChangelogCard(card);
+    });
     
     return card;
+}
+
+function toggleChangelogCard(card) {
+    const content = card.querySelector('.changelog-content');
+    const expandIcon = card.querySelector('.changelog-expand-icon');
+    
+    if (card.classList.contains('collapsed')) {
+        // Expand
+        card.classList.remove('collapsed');
+        card.classList.add('expanded');
+        expandIcon.textContent = '▲';
+        content.style.maxHeight = content.scrollHeight + 'px';
+        
+        // Add glow effect
+        card.style.boxShadow = '0 20px 60px var(--shadow-purple), 0 0 30px var(--shadow-green)';
+        
+        setTimeout(() => {
+            content.style.maxHeight = 'none';
+        }, 300);
+    } else {
+        // Collapse
+        content.style.maxHeight = content.scrollHeight + 'px';
+        
+        setTimeout(() => {
+            card.classList.remove('expanded');
+            card.classList.add('collapsed');
+            expandIcon.textContent = '▼';
+            content.style.maxHeight = '0';
+            card.style.boxShadow = '0 15px 50px var(--shadow-purple)';
+        }, 10);
+    }
 }
 
 function formatDate(dateString) {
