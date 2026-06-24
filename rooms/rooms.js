@@ -19,7 +19,7 @@ const MODPACK_APIS = {
     },
     'VanzaKart Wii': {
         primary: null,
-        fallback: 'http://sitodaking.it/api/groups',
+        fallback: 'http://sitodaking.it/api/groups?game=vanzakart',
         displayName: 'VanzaKart Wii',
         wikiLink: null
     }
@@ -37,6 +37,7 @@ let availableModpacks = [];
 let refreshInterval = null;
 
 const GAMEMODE_MAP = {
+    // Retro Rewind
     "10": "Retro Tracks",
     "11": "Online TT",
     "12": "200cc",
@@ -46,26 +47,68 @@ const GAMEMODE_MAP = {
     "20": "Custom Tracks",
     "21": "Vanilla Tracks",
     "22": "CT 200cc",
+    
+    // Insane Kart Wii
+    "69": "Regular Versus",
+    "70": "Infinite Acceleration",
+    "71": "Random Items",
+    "72": "Unfair Items",
+    "73": "Blue Shell Madness",
+    "74": "Bumper Karts",
+    "75": "Item Rampage",
+    "76": "Item Rain",
+    "77": "Riibalanced Stats",
+    "78": "Bob-omb Blast",
+    "79": "Banana Slip",
+    "80": "Mushroom Dash",
+    "81": "Shell Break",
+    "82": "Marathon Mode",
+    "83": "Countdown",
+    "420": "Regular Battle",
+    "421": "Random Items Battle",
+    "422": "Unfair Items Battle",
+    "423": "Blueshell Madness Battle",
+    "424": "Item Rampage Battle",
+    "425": "Bob-omb Blast Battle",
+    "426": "Banana Slip Battle",
+    "427": "Mushroom Dash Battle",
+    "428": "Shell Break Battle",
+    
+    // Insane Kart Wii Lite
+    "2069": "Regular Versus",
+    "2070": "Infinite Acceleration",
+    "2071": "Random Items",
+    "2072": "Unfair Items",
+    "2073": "Blue Shell Madness",
+    "2074": "Bumper Karts",
+    "2075": "Item Rampage",
+    "2076": "Item Rain",
+    "2077": "Riibalanced Stats",
+    "2078": "Bob-omb Blast",
+    "2079": "Banana Slip",
+    "2080": "Mushroom Dash",
+    "2081": "Shell Break",
+    "2082": "Marathon Mode",
+    "2083": "Countdown",
+    "2420": "Regular Battle",
+    "2421": "Random Items Battle",
+    "2422": "Unfair Items Battle",
+    "2423": "Blueshell Madness Battle",
+    "2424": "Item Rampage Battle",
+    "2425": "Bob-omb Blast Battle",
+    "2426": "Banana Slip Battle",
+    "2427": "Mushroom Dash Battle",
+    "2428": "Shell Break Battle",
+    
+    // Silly Kart Wii
+    "6464": "Silly Mode",
+    
+    // Other modpacks
     "666": "Luminous 150cc",
     "667": "Luminous Online TT",
     "668": "CTGP-C",
     "751": "Versus",
     "-1": "Regular",
-    "69": "IKW Default",
-    "70": "IKW Ultras VS",
-    "71": "IKW Countdown",
-    "72": "IKW Bob-omb Blast",
-    "73": "IKW Infinite Accel",
-    "74": "IKW Banana Slip",
-    "75": "IKW Random Items",
-    "76": "IKW Unfair Items",
-    "77": "IKW Blue Shell Madness",
-    "78": "IKW Mushroom Dash",
-    "79": "IKW Bumper Karts",
-    "80": "IKW Item Rampage",
-    "81": "IKW Item Rain",
-    "82": "IKW Shell Break",
-    "83": "IKW Riibalanced",
     "875": "OptPack 150cc",
     "876": "OptPack Online TT",
     "877": "OptPack",
@@ -76,7 +119,9 @@ const GAMEMODE_MAP = {
     "1313": "WTP 200cc",
     "1314": "WTP Online TT",
     "1315": "WTP Item Rain",
-    "1316": "WTP STYD"
+    "1316": "WTP STYD",
+    "824": "Nitro GP",
+    "444": "Regular VS"
 };
 
 const canvas = document.getElementById('stars');
@@ -463,7 +508,18 @@ function createRoomCard(group, index) {
     const lobbyClass = group.type === 'private' ? 'lobby-private' : 'lobby-public';
 
     const roomKey = group.rk || '';
-    const gamemodeId = roomKey.startsWith('vs_') ? roomKey.split('_')[1] : '';
+    let gamemodeId = '';
+    
+    // Extract gamemode ID based on room key pattern
+    if (roomKey.startsWith('vs_')) {
+        // Retro Rewind format: vs_10, vs_12, etc.
+        gamemodeId = roomKey.split('_')[1];
+    } else if (roomKey.includes('_')) {
+        // Other formats: ikw_69, skw_6464, vkw_xxx, etc.
+        const parts = roomKey.split('_');
+        gamemodeId = parts[parts.length - 1]; // Get last part after underscore
+    }
+    
     const gamemodeName = GAMEMODE_MAP[gamemodeId] || 'Unknown Mode';
 
     let playerStatus = `${playerCount}/${maxPlayers} Players`;
