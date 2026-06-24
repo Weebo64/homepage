@@ -3,25 +3,30 @@ const MODPACK_APIS = {
         primary: 'https://umapyoi.net/api/v1/rr-rooms',
         fallback: 'https://rwfc.net/api/groups',
         displayName: 'Retro Rewind',
-        wikiLink: 'https://wiki.tockdom.com/wiki/Retro_Rewind'
+        wikiLink: 'https://wiki.tockdom.com/wiki/Retro_Rewind',
+        disabled: false
     },
     'Insane Kart Wii': {
         primary: null,
         fallback: 'https://ikwfc.xyz/api/groups',
         displayName: 'Insane Kart Wii',
-        wikiLink: null
+        wikiLink: null,
+        disabled: false
     },
     'Silly Kart Wii': {
         primary: null,
         fallback: 'https://ikwfc.xyz/api/groups',
         displayName: 'Silly Kart Wii',
-        wikiLink: null
+        wikiLink: null,
+        disabled: false
     },
     'VanzaKart Wii': {
         primary: null,
         fallback: 'http://sitodaking.it/api/groups?game=vanzakart',
         displayName: 'VanzaKart Wii',
-        wikiLink: null
+        wikiLink: null,
+        disabled: true,
+        disabledMessage: '⚠️ API connection issues. Please be patient, we are working on it!'
     }
 };
 
@@ -210,32 +215,71 @@ function renderModpackTabs() {
     tabsList.innerHTML = '';
     
     availableModpacks.forEach((modpack, index) => {
+        const modpackConfig = MODPACK_APIS[modpack];
+        
         const tabElement = document.createElement('button');
         tabElement.className = 'tab-button';
         tabElement.textContent = modpack;
         tabElement.dataset.modpack = modpack;
         
-        if (index === 0 && !selectedModpack) {
+        // Check if modpack is disabled
+        if (modpackConfig && modpackConfig.disabled) {
+            tabElement.classList.add('disabled');
+            tabElement.disabled = true;
+            tabElement.title = modpackConfig.disabledMessage || 'This modpack is temporarily unavailable';
+            
+            // Add warning icon
+            tabElement.innerHTML = `<span class="tab-warning">⚠️</span> ${modpack}`;
+        }
+        
+        if (index === 0 && !selectedModpack && (!modpackConfig || !modpackConfig.disabled)) {
             tabElement.classList.add('active');
             selectedModpack = modpack;
         } else if (selectedModpack === modpack) {
             tabElement.classList.add('active');
         }
         
-        tabElement.addEventListener('click', () => {
-            selectedModpack = modpack;
-            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-            tabElement.classList.add('active');
-            
-            fetchRoomsForModpack();
-        });
+        if (!modpackConfig || !modpackConfig.disabled) {
+            tabElement.addEventListener('click', () => {
+                selectedModpack = modpack;
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                tabElement.classList.add('active');
+                
+                fetchRoomsForModpack();
+            });
+        } else {
+            // Show tooltip on hover for disabled tabs
+            tabElement.addEventListener('click', (e) => {
+                e.preventDefault();
+                showDisabledWarning(modpackConfig.disabledMessage);
+            });
+        }
         
         tabsList.appendChild(tabElement);
     });
     
     if (selectedModpack) {
-        fetchRoomsForModpack();
+        const modpackConfig = MODPACK_APIS[selectedModpack];
+        if (!modpackConfig || !modpackConfig.disabled) {
+            fetchRoomsForModpack();
+        }
     }
+}
+
+function showDisabledWarning(message) {
+    const roomsGrid = document.getElementById('roomsGrid');
+    roomsGrid.innerHTML = `
+        <div class="disabled-warning">
+            <div class="warning-icon">⚠️</div>
+            <h2>Modpack Temporarily Unavailable</h2>
+            <p>${message}</p>
+            <p class="warning-note">This modpack will be available once the API connection is restored.</p>
+        </div>
+    `;
+    
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('error').style.display = 'none';
+    updateStats(0, 0);
 }
 
 async function fetchRoomsForModpack() {
