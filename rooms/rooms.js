@@ -19,7 +19,7 @@ const MODPACK_APIS = {
     },
     'VanzaKart Wii': {
         primary: null,
-        fallback: 'https://sitodaking.it/api/groups',
+        fallback: 'http://sitodaking.it/api/groups',
         displayName: 'VanzaKart Wii',
         wikiLink: null
     }
@@ -30,7 +30,7 @@ const CORS_PROXIES = [
     'https://api.allorigins.win/raw?url=',
     'https://corsproxy.io/?',
     'https://api.codetabs.com/v1/proxy?quest=',
-    'https://thingproxy.freeboard.io/fetch/'
+    'https://proxy.cors.sh/'
 ];
 let currentProxyIndex = 0;
 
@@ -814,7 +814,7 @@ setInterval(() => {
 
 initializePage();
 
-const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1434643639476420889/HLW7ffk1B0-4UeGzl-8UsaLvqLjpaC7qtHz1dI8-HWWwW5b5HCgsA96_vJkExkm5Yu5A';
+// const DISCORD_WEBHOOK_URL = nothing
 
 const reportButton = document.getElementById('reportButton');
 const reportModal = document.getElementById('reportModal');
