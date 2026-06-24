@@ -19,7 +19,7 @@ const MODPACK_APIS = {
     },
     'VanzaKart Wii': {
         primary: null,
-        fallback: 'http://sitodaking.it/api/groups',
+        fallback: 'https://sitodaking.it/api/groups',
         displayName: 'VanzaKart Wii',
         wikiLink: null
     }
