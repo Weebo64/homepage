@@ -1,23 +1,28 @@
 [
     {
         "version": "v1.0.0",
-        "date": "2026-??-??",
+        "date": "2026-06-24",
         "type": "release",
-        "title": "FINALLY!!!! SKWii Release",
+        "title": "Initial Release",
         "changes": [
             {
                 "category": "Added",
                 "items": [
-                        "version 1.0 LETS GOOOOOOOOOOOO"
-                ]
-            },
-            {
-                "category": "Fixed",
-                "items": []
-            },
-            {
-                "category": "Changed",
-                "items": [
+                    "200cc support with ghost saving",
+                    "Silly Mode System (Normal, Chaos, Extreme)",
+                    "Feather item from Super Mario Kart",
+                    "Ultra Mini-Turbos and Mega TCs",
+                    "Input Viewer for streams",
+                    "Manual/Auto transmission with brake drifting",
+                    "IKWFC online support",
+                    "Discord Rich Presence",
+                    "KO elimination mode",
+                    "Free roam exploration",
+                    "Custom cup configuration",
+                    "Multi-ghost replay viewing",
+                    "In-game settings menu",
+                    "Custom color HUD",
+                    "Speedometer display",
                     "Enhanced character physics",
                     "Custom weight classes",
                     "Fast menu navigation"
