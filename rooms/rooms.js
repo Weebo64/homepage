@@ -28,9 +28,7 @@ const MODPACK_APIS = {
 const IKW_GROUPS_API = 'https://ikwfc.xyz/api/groups';
 const CORS_PROXIES = [
     'https://api.allorigins.win/raw?url=',
-    'https://corsproxy.io/?',
-    'https://api.codetabs.com/v1/proxy?quest=',
-    'https://proxy.cors.sh/'
+    'https://api.codetabs.com/v1/proxy?quest='
 ];
 let currentProxyIndex = 0;
 
@@ -289,17 +287,26 @@ async function fetchRoomsForModpack() {
         for (let i = 0; i < CORS_PROXIES.length; i++) {
             try {
                 const proxy = CORS_PROXIES[(currentProxyIndex + i) % CORS_PROXIES.length];
-                console.log(`Trying proxy: ${proxy}`);
+                console.log(`Trying proxy ${i + 1}/${CORS_PROXIES.length}: ${proxy}`);
 
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 8000);
+                const timeoutId = setTimeout(() => controller.abort(), 10000);
 
                 const fallbackEndpoint = modpackApi.fallback || modpackApi.primary;
-                const response = await fetch(proxy + encodeURIComponent(fallbackEndpoint), {
-                    signal: controller.signal
+                const proxyUrl = proxy + encodeURIComponent(fallbackEndpoint);
+                
+                console.log(`Fetching: ${proxyUrl}`);
+                
+                const response = await fetch(proxyUrl, {
+                    signal: controller.signal,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
                 });
 
                 clearTimeout(timeoutId);
+
+                console.log(`Proxy response status: ${response.status}`);
 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}`);
@@ -308,7 +315,7 @@ async function fetchRoomsForModpack() {
                 const groups = await response.json();
 
                 currentProxyIndex = (currentProxyIndex + i) % CORS_PROXIES.length;
-                console.log(`Success with proxy: ${proxy}`);
+                console.log(`Success with proxy: ${proxy}`, groups);
 
                 loading.style.display = 'none';
 
@@ -327,12 +334,13 @@ async function fetchRoomsForModpack() {
             }
         }
 
-        throw lastError || new Error('All methods failed');
+        throw lastError || new Error('All proxy methods failed');
 
     } catch (err) {
         console.error('Error fetching rooms:', err);
         loading.style.display = 'none';
         error.style.display = 'block';
+        roomsGrid.innerHTML = '<div class="no-rooms">⚠️ Unable to load rooms for this modpack. The API may be unavailable.</div>';
     }
 }
 
@@ -591,7 +599,6 @@ async function convertMiiDataToStudioFormat(miiData) {
 
 function getMiiImageUrl(studioData) {
     if (!studioData) {
-        // Use a data URI fallback instead of via.placeholder.com
         return 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="70" height="70"%3E%3Crect fill="%23e0e0e0" width="70" height="70" rx="35"/%3E%3Ctext fill="%23757575" x="50%25" y="50%25" text-anchor="middle" dy=".35em" font-family="Arial,sans-serif" font-size="24"%3E%3F%3C/text%3E%3C/svg%3E';
     }
 
@@ -614,7 +621,6 @@ async function getMiiImageForPlayer(player) {
         return imageUrl;
     }
 
-    // Use a data URI fallback instead of via.placeholder.com
     const fallbackUrl = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="70" height="70"%3E%3Crect fill="%23e0e0e0" width="70" height="70" rx="35"/%3E%3Ctext fill="%23757575" x="50%25" y="50%25" text-anchor="middle" dy=".35em" font-family="Arial,sans-serif" font-size="24"%3E%3F%3C/text%3E%3C/svg%3E';
     miiImageCache[fc] = fallbackUrl;
     return fallbackUrl;
