@@ -1,0 +1,28 @@
+[
+    {
+        "version": "v1.0.0",
+        "date": "2026-??-??",
+        "type": "release",
+        "title": "FINALLY!!!! SKWii Release",
+        "changes": [
+            {
+                "category": "Added",
+                "items": [
+                        "version 1.0 LETS GOOOOOOOOOOOO"
+                ]
+            },
+            {
+                "category": "Fixed",
+                "items": []
+            },
+            {
+                "category": "Changed",
+                "items": [
+                    "Enhanced character physics",
+                    "Custom weight classes",
+                    "Fast menu navigation"
+                ]
+            }
+        ]
+    }
+]

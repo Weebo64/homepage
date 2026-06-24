@@ -606,3 +606,138 @@ if (logo) {
 
 console.log('%c✓ Silly Kart Wii JavaScript Loaded Successfully', 'color: #00FF00; font-weight: bold;');
 console.log('%cEnjoy the chaos! 🎪', 'color: #944CB3; font-style: italic;');
+
+
+// ============================================
+// CHANGELOG LOADER
+// ============================================
+
+async function loadChangelogs() {
+    const container = document.getElementById('changelog-container');
+    
+    try {
+        const response = await fetch('changelogs.json');
+        if (!response.ok) throw new Error('Failed to load changelogs');
+        
+        const changelogs = await response.json();
+        
+        if (changelogs.length === 0) {
+            container.innerHTML = `
+                <div class="changelog-empty">
+                    <div class="empty-icon">📦</div>
+                    <p>No changelogs available yet!</p>
+                    <p class="empty-subtitle">Check back after the first release!</p>
+                </div>
+            `;
+            return;
+        }
+        
+        container.innerHTML = '';
+        
+        changelogs.forEach((changelog, index) => {
+            const changelogCard = createChangelogCard(changelog, index);
+            container.appendChild(changelogCard);
+        });
+        
+        // Animate changelog cards
+        animateChangelogs();
+        
+    } catch (error) {
+        console.error('Error loading changelogs:', error);
+        container.innerHTML = `
+            <div class="changelog-error">
+                <div class="error-icon">⚠️</div>
+                <p>Failed to load changelogs</p>
+                <p class="error-subtitle">Please try again later</p>
+            </div>
+        `;
+    }
+}
+
+function createChangelogCard(changelog, index) {
+    const card = document.createElement('div');
+    card.className = 'changelog-card';
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    
+    // Determine badge style based on type
+    const badgeClass = changelog.type === 'release' ? 'badge-release' : 
+                       changelog.type === 'beta' ? 'badge-beta' : 
+                       changelog.type === 'hotfix' ? 'badge-hotfix' : 'badge-update';
+    
+    const badgeText = changelog.type === 'release' ? '🎉 RELEASE' :
+                      changelog.type === 'beta' ? '🧪 BETA' :
+                      changelog.type === 'hotfix' ? '🔧 HOTFIX' : '📦 UPDATE';
+    
+    // Create header
+    const header = `
+        <div class="changelog-header">
+            <div class="changelog-header-left">
+                <h3 class="changelog-version">${changelog.version}</h3>
+                <span class="changelog-badge ${badgeClass}">${badgeText}</span>
+            </div>
+            <div class="changelog-date">${formatDate(changelog.date)}</div>
+        </div>
+    `;
+    
+    // Create title if exists
+    const title = changelog.title ? `
+        <div class="changelog-title">${changelog.title}</div>
+    ` : '';
+    
+    // Create changes sections
+    let changesHTML = '<div class="changelog-changes">';
+    
+    changelog.changes.forEach(category => {
+        if (category.items && category.items.length > 0) {
+            const categoryIcon = category.category === 'Added' ? '✨' :
+                               category.category === 'Fixed' ? '🔧' :
+                               category.category === 'Changed' ? '🔄' :
+                               category.category === 'Removed' ? '🗑️' : '📝';
+            
+            const categoryClass = category.category.toLowerCase();
+            
+            changesHTML += `
+                <div class="change-category ${categoryClass}">
+                    <h4 class="category-title">
+                        <span class="category-icon">${categoryIcon}</span>
+                        ${category.category}
+                    </h4>
+                    <ul class="change-list">
+                        ${category.items.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+    });
+    
+    changesHTML += '</div>';
+    
+    card.innerHTML = header + title + changesHTML;
+    
+    return card;
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+
+function animateChangelogs() {
+    const cards = document.querySelectorAll('.changelog-card');
+    cards.forEach((card, index) => {
+        setTimeout(() => {
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 150);
+    });
+}
+
+// Load changelogs when page loads
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadChangelogs);
+} else {
+    loadChangelogs();
+}
