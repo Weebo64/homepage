@@ -249,34 +249,40 @@ async function fetchRoomsForModpack() {
         }
 
         if (modpackApi.fallback) {
-            try {
-                console.log(`Trying ${selectedModpack} fallback API...`);
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 8000);
+            const isHttpUrl = modpackApi.fallback.startsWith('http://');
+            
+            if (!isHttpUrl) {
+                try {
+                    console.log(`Trying ${selectedModpack} fallback API...`);
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 8000);
 
-                const response = await fetch(modpackApi.fallback, {
-                    signal: controller.signal,
-                    mode: 'cors'
-                });
+                    const response = await fetch(modpackApi.fallback, {
+                        signal: controller.signal,
+                        mode: 'cors'
+                    });
 
-                clearTimeout(timeoutId);
+                    clearTimeout(timeoutId);
 
-                if (response.ok) {
-                    const groups = await response.json();
-                    console.log(`Success with ${selectedModpack} fallback API`);
-                    loading.style.display = 'none';
+                    if (response.ok) {
+                        const groups = await response.json();
+                        console.log(`Success with ${selectedModpack} fallback API`);
+                        loading.style.display = 'none';
 
-                    if (!groups || groups.length === 0) {
-                        roomsGrid.innerHTML = '<div class="no-rooms">🏁 No active rooms at the moment</div>';
-                        updateStats(0, 0);
+                        if (!groups || groups.length === 0) {
+                            roomsGrid.innerHTML = '<div class="no-rooms">🏁 No active rooms at the moment</div>';
+                            updateStats(0, 0);
+                            return;
+                        }
+
+                        displayRooms(groups);
                         return;
                     }
-
-                    displayRooms(groups);
-                    return;
+                } catch (directErr) {
+                    console.log(`${selectedModpack} fallback API failed, trying proxies...`, directErr.message);
                 }
-            } catch (directErr) {
-                console.log(`${selectedModpack} fallback API failed, trying proxies...`, directErr.message);
+            } else {
+                console.log(`${selectedModpack} uses HTTP, skipping direct fetch and using proxies...`);
             }
         }
 
