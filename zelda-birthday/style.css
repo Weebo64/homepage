@@ -218,12 +218,18 @@ body {
 .photo-section {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin: 80px 0;
+    width: 100%;
 }
 
 .photo-frame {
     position: relative;
     animation: fadeInUp 1.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .orbit-ring {
@@ -267,6 +273,7 @@ body {
     animation: float 4s ease-in-out infinite;
     position: relative;
     z-index: 10;
+    display: block;
 }
 
 .photo-caption {
@@ -276,6 +283,7 @@ body {
     color: #87CEEB;
     font-weight: 600;
     text-shadow: 0 0 15px rgba(135, 206, 250, 0.6);
+    width: 100%;
 }
 
 /* Section Titles */
@@ -1012,57 +1020,342 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+    
+    .container {
+        padding: 10px;
+    }
+    
+    .birthday-header {
+        padding: 40px 15px 30px;
+        margin-bottom: 20px;
+    }
+    
+    .planet-decoration {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 20px;
+    }
+    
     .galaxy-title {
         font-size: 2.5rem;
+        margin-bottom: 15px;
     }
     
     .name-reveal {
         font-size: 3.5rem;
+        margin-bottom: 10px;
     }
     
     .subtitle {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+    
+    .subtitle-small {
+        font-size: 0.9rem;
+    }
+    
+    .photo-section {
+        margin: 40px 0;
+    }
+    
+    .profile-photo {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .orbit-ring {
+        width: 240px;
+        height: 240px;
+    }
+    
+    .orbit-ring-2 {
+        width: 290px;
+        height: 290px;
+    }
+    
+    .photo-caption {
+        font-size: 1.2rem;
+        margin-top: 20px;
     }
     
     .section-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        margin: 50px 0 30px;
+    }
+    
+    .awesome-section,
+    .moments-section,
+    .wishes-section,
+    .message-section,
+    .gift-section {
+        margin: 60px 0;
     }
     
     .reasons-grid,
     .moments-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 10px;
+    }
+    
+    .reason-card,
+    .moment-card {
+        padding: 25px 20px;
+    }
+    
+    .star-icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+    
+    .reason-card h3,
+    .moment-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    .reason-card p,
+    .moment-content p {
+        font-size: 1rem;
     }
     
     .message-card {
-        padding: 40px 25px;
+        padding: 30px 20px;
+        border-radius: 20px;
     }
     
     .message-text {
+        font-size: 1rem;
+        line-height: 1.8;
+        margin-bottom: 15px;
+    }
+    
+    .highlight {
+        font-size: 1.2rem;
+    }
+    
+    .from {
+        font-size: 1rem;
+    }
+    
+    .hearts-decoration {
+        font-size: 1.5rem;
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .wishes-content {
+        gap: 15px;
+        padding: 10px;
+    }
+    
+    .wish-item {
         font-size: 1.1rem;
+        padding: 20px 15px;
+    }
+    
+    .gift-section {
+        padding: 30px 15px;
+    }
+    
+    .gift-hint {
+        font-size: 1.4rem;
+        margin-bottom: 30px;
+    }
+    
+    .gift-box {
+        width: 160px;
+        height: 180px;
+    }
+    
+    .gift-lid {
+        width: 180px;
+        height: 35px;
+    }
+    
+    .gift-body {
+        width: 160px;
+        height: 145px;
+    }
+    
+    .gift-bow {
+        font-size: 2rem;
+    }
+    
+    .gift-label {
+        font-size: 1rem;
+    }
+    
+    .surprise-content {
+        padding: 30px 20px;
+        border-radius: 20px;
+    }
+    
+    .surprise-title {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+    
+    .surprise-text {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    
+    .promise-list li {
+        font-size: 1rem;
+        padding: 12px;
+        margin: 8px 0;
+    }
+    
+    .coupon-style {
+        padding: 20px 15px;
+        font-size: 1rem;
+    }
+    
+    .coupon-style strong {
+        font-size: 1.2rem;
+    }
+    
+    .surprise-footer {
+        font-size: 1rem;
+    }
+    
+    .lock-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+    
+    .lock-question {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+    
+    .lock-question strong {
+        font-size: 1.3rem;
+    }
+    
+    .password-input {
+        width: 90%;
+        padding: 12px 15px;
+        font-size: 1rem;
+    }
+    
+    .unlock-button {
+        padding: 10px 25px;
+        font-size: 1rem;
+    }
+    
+    .wrong-password {
+        font-size: 1rem;
+    }
+    
+    .secret-message-title {
+        font-size: 1.2rem;
+    }
+    
+    .secret-gift-image {
+        max-height: 250px;
+    }
+    
+    .secret-message-text {
+        font-size: 1rem;
+        line-height: 1.7;
+        padding: 5px;
+    }
+    
+    .birthday-footer {
+        padding: 50px 15px;
+        margin-top: 50px;
+    }
+    
+    .footer-text {
+        font-size: 1.3rem;
+    }
+    
+    .footer-subtext {
+        font-size: 1rem;
+    }
+    
+    .footer-note,
+    .footer-signature {
+        font-size: 0.9rem;
+    }
+    
+    .tip-content {
+        padding: 30px 20px;
+        margin: 15px;
+        max-width: 90%;
+    }
+    
+    .tip-title {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+    
+    .tip-message {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+    
+    .play-button {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .galaxy-title {
+        font-size: 2rem;
+    }
+    
+    .name-reveal {
+        font-size: 2.8rem;
     }
     
     .profile-photo {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .orbit-ring {
         width: 200px;
         height: 200px;
     }
     
-    .orbit-ring {
-        width: 270px;
-        height: 270px;
-    }
-    
     .orbit-ring-2 {
-        width: 330px;
-        height: 330px;
+        width: 240px;
+        height: 240px;
     }
     
-    .planet-decoration {
-        width: 100px;
-        height: 100px;
+    .section-title {
+        font-size: 1.7rem;
     }
     
-    .tip-content {
-        padding: 40px 30px;
-        margin: 20px;
+    .reason-card,
+    .moment-card {
+        padding: 20px 15px;
+    }
+    
+    .message-card {
+        padding: 25px 15px;
+    }
+    
+    .gift-box {
+        width: 140px;
+        height: 160px;
+    }
+    
+    .gift-lid {
+        width: 160px;
+        height: 30px;
+    }
+    
+    .gift-body {
+        width: 140px;
+        height: 130px;
     }
 }
