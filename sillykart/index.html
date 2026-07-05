@@ -46,23 +46,7 @@
                 <p class="subtitle-main">WEEBO'S FIRST MARIO KART WII MODPACK</p>
                 <p class="subtitle-tagline">LETS GET READY FOR SOME SILLY KART WII!!!</p>
             </div>
-            <div class="hero-buttons">
-                <a href="https://drive.google.com/file/d/1FDf98NNrgjt4eef_xkDrgxbV9-WLJH2L/view?usp=sharing" target="_blank" class="mkwii-button primary">
-                    <span class="button-shine"></span>
-                    <span class="button-content">
-                        <span class="button-icon">⬇️</span>
-                        <span class="button-text">DOWNLOAD NOW</span>
-                    </span>
-                </a>
-                <a href="https://github.com/Weebo64/SillyKartWii" target="_blank" class="mkwii-button secondary">
-                    <span class="button-shine"></span>
-                    <span class="button-content">
-                        <span class="button-icon">💻</span>
-                        <span class="button-text">VIEW SOURCE</span>
-                    </span>
-                </a>
-            </div>
-            
+
             <div class="stats-ticker">
                 <div class="stat-item">
                     <div class="stat-icon">⚡</div>
@@ -308,13 +292,13 @@
                 <div class="download-icon">🎮</div>
                 <h3>SILLY KART WII</h3>
                 <p>Ready to race? Download the latest version and join the silly fun!</p>
-                <a href="https://drive.google.com/file/d/1FDf98NNrgjt4eef_xkDrgxbV9-WLJH2L/view?usp=sharing" target="_blank" class="mkwii-button primary large">
+                <button class="mkwii-button primary large download-trigger" data-download-url="https://drive.google.com/file/d/1FDf98NNrgjt4eef_xkDrgxbV9-WLJH2L/view?usp=sharing">
                     <span class="button-shine"></span>
                     <span class="button-content">
                         <span class="button-icon">⬇️</span>
                         <span class="button-text">DOWNLOAD NOW</span>
                     </span>
-                </a>
+                </button>
                 <div class="download-links">
                     <a href="https://github.com/Weebo64/SillyKartWii" target="_blank">View Source Code →</a>
                     <a href="https://discord.gg/RGqjpAqJGf" target="_blank">Join Discord for Support →</a>
@@ -452,6 +436,42 @@
             <p class="footer-copyright">© 2026 Weebo64 • Mario Kart Wii © Nintendo</p>
         </div>
     </footer>
+
+    <div id="warning-modal" class="warning-modal">
+        <div class="warning-modal-content">
+            <div class="warning-modal-header">
+                <div class="warning-icon">⚠️</div>
+                <h2>IMPORTANT NOTICE</h2>
+            </div>
+            <div class="warning-modal-body">
+                <p class="warning-text">
+                    The <strong>NTSC-U version</strong> of Silly Kart Wii currently has a known issue with the 
+                    <strong>"Items on Minimap"</strong> feature.
+                </p>
+                <div class="warning-highlight">
+                    <span class="warning-label">🔧 Status:</span>
+                    <span>This will be fixed in a future update (no ETA yet)</span>
+                </div>
+                <div class="warning-solution">
+                    <span class="solution-icon">💡</span>
+                    <p><strong>Workaround:</strong> Please <strong>DO NOT</strong> enable the "Items on Minimap" setting in the game options.</p>
+                </div>
+            </div>
+            <div class="warning-modal-footer">
+                <button id="accept-warning" class="mkwii-button primary">
+                    <span class="button-content">
+                        <span class="button-icon">✓</span>
+                        <span class="button-text">I ACCEPT</span>
+                    </span>
+                </button>
+                <button id="cancel-warning" class="mkwii-button secondary">
+                    <span class="button-content">
+                        <span class="button-text">CANCEL</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script src="sillykart.js"></script>
 </body>
