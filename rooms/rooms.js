@@ -1,7 +1,7 @@
 const MODPACK_APIS = {
     'Retro Rewind': {
         primary: 'https://umapyoi.net/api/v1/rr-rooms',
-        fallback: 'https://rwfc.net/api/groups',
+        fallback: 'https://rwfc.net/api/wfc/groups',
         displayName: 'Retro Rewind',
         wikiLink: 'https://wiki.tockdom.com/wiki/Retro_Rewind',
         disabled: false
